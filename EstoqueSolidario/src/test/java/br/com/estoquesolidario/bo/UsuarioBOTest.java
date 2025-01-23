@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UsuarioBOTest {
 
-    @Autowired
+
     private UsuarioBO bo;
 
     @Test
