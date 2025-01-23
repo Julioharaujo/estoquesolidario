@@ -1,4 +1,4 @@
-package br.com.estoquesolidario.EstoqueSolidario;
+package br.com.estoquesolidario;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

@@ -1,4 +1,4 @@
-package br.com.estoquesolidario.EstoqueSolidario;
+package br.com.estoquesolidario;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

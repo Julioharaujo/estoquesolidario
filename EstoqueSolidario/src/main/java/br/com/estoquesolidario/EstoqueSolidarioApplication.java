@@ -1,4 +1,4 @@
-package br.com.estoquesolidario.EstoqueSolidario;
+package br.com.estoquesolidario;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
