@@ -5,7 +5,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
@@ -27,6 +26,7 @@ public class Usuario {
     private String celular;
     @Column(length =50)
     private String email;
+
     private boolean ativo;
 
     public Long getId() {
