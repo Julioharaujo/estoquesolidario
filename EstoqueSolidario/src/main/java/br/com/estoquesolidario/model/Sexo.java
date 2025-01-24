@@ -1,4 +1,4 @@
-package model;
+package br.com.estoquesolidario.model;
 
 public enum Sexo {
     MASCULINO("Masculino"),

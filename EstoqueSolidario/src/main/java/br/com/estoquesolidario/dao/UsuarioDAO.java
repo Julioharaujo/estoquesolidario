@@ -1,13 +1,16 @@
-package dao;
+package br.com.estoquesolidario.dao;
 
-import model.Usuario;
+import br.com.estoquesolidario.model.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Repository
+@Transactional
 public class UsuarioDAO implements CRUD<Usuario, Long>{
 
     @PersistenceContext
