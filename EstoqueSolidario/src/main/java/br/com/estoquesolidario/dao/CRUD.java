@@ -1,4 +1,4 @@
-package dao;
+package br.com.estoquesolidario.dao;
 
 import java.util.List;
 

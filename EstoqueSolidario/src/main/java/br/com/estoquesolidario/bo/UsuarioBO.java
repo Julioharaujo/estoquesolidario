@@ -1,8 +1,8 @@
-package bo;
+package br.com.estoquesolidario.bo;
 
-import dao.CRUD;
-import dao.UsuarioDAO;
-import model.Usuario;
+import br.com.estoquesolidario.dao.CRUD;
+import br.com.estoquesolidario.dao.UsuarioDAO;
+import br.com.estoquesolidario.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;

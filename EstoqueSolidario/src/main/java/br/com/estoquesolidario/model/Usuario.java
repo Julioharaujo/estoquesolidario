@@ -1,4 +1,4 @@
-package model;
+package br.com.estoquesolidario.model;
 
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;

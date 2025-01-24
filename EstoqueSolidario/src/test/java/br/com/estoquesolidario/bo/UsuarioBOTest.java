@@ -1,8 +1,7 @@
 package br.com.estoquesolidario.bo;
 
-import bo.UsuarioBO;
-import model.Sexo;
-import model.Usuario;
+import br.com.estoquesolidario.model.Sexo;
+import br.com.estoquesolidario.model.Usuario;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ import java.time.LocalDate;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UsuarioBOTest {
 
-
+    @Autowired
     private UsuarioBO bo;
 
     @Test
@@ -33,6 +32,7 @@ public class UsuarioBOTest {
         usuario.setTelefone("0123456789");
         usuario.setCelular("11987654321");
         usuario.setAtivo(true);
+        usuario.setEmail("mario@mario.com.br");
         bo.insere(usuario);
     }
 
