@@ -4,11 +4,13 @@ import dao.CRUD;
 import dao.UsuarioDAO;
 import model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Repository
 public class UsuarioBO implements CRUD<Usuario, Long> {
     @Autowired
     private UsuarioDAO dao;
