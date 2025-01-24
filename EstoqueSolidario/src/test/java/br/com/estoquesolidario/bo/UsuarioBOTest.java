@@ -32,6 +32,7 @@ public class UsuarioBOTest {
         usuario.setTelefone("0123456789");
         usuario.setCelular("11987654321");
         usuario.setAtivo(true);
+        usuario.setEmail("mario@mario.com.br");
         bo.insere(usuario);
     }
 
