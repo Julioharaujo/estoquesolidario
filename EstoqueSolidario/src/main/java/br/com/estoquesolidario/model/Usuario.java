@@ -8,22 +8,30 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false,length = 50)
     private String nome;
+
     @Column(length =11)
     private String cpf;
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name="data_nascimento",columnDefinition = "DATE")
     private LocalDate dataDeNascimento;
+
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
+
     @Column(length =10)
     private String telefone;
+
     @Column(length =11)
     private String celular;
+
     @Column(length =50)
     private String email;
 

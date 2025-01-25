@@ -8,7 +8,7 @@
     <div>
         <h1>Dados do Usuário</h1>
         <hr>
-        <form th:action="@{/usuarios/salvar}" th:object="${usuario}" method="POST">
+        <form th:action="@{usuarios}" th:object="${usuario}" method="POST">
             <input id="ativo" type="hidden" th:field="*{id}"/>
             <div>
                 <label for="ativo">Registro ativo</label>
@@ -29,8 +29,8 @@
             <div>
                 <label for="sexo">Sexo</label>
                 <select id="sexo" th:field="*{sexo}">
-                <option value="MASCULINO">Masculino</option>
                 <option value="FEMININO">Feminino</option>
+                <option value="MASCULINO">Masculino</option>
                 </select>
             </div>
             <div>

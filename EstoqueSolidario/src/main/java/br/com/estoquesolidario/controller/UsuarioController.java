@@ -4,6 +4,7 @@ import br.com.estoquesolidario.bo.UsuarioBO;
 import br.com.estoquesolidario.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +24,16 @@ public class UsuarioController {
         return new ModelAndView("/usuario/formulario.html", model);
     }
 
-    //esta dando erro: aula 5 tema 2//
-    @RequestMapping(value = "/salvar", method = RequestMethod.POST)
-    public String salva(@ModelAttribute Usuario usuario) {
+    @RequestMapping(value = "usuarios", method = RequestMethod.POST)
+    public String salva(@ModelAttribute Usuario usuario, Model model) {
         bo.insere(usuario);
-        //return "redirect:/usuarios/novo";
-        return "redirect:/usuario/formulario.html";
+        return "/usuario/formulario.html";
+    }
+
+    //resolver um erro aqui. aula 5 t3
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ModelAndView lista(ModelMap model) {
+        model.addAttribute("usuarios", bo.lista());
+        return new ModelAndView("/usuario/lista", model);
     }
 }
