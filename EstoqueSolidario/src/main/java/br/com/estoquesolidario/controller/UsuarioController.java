@@ -7,16 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
     @Autowired
-    private UsuarioBO bo;
+    private UsuarioBO usuarioBO;
 
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model) {
@@ -24,16 +26,50 @@ public class UsuarioController {
         return new ModelAndView("/usuario/formulario.html", model);
     }
 
-    @RequestMapping(value = "usuarios", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public String salva(@ModelAttribute Usuario usuario, Model model) {
-        bo.insere(usuario);
-        return "/usuario/formulario.html";
+        usuarioBO.insere(usuario);
+        return "redirect:/usuarios/novo";
     }
 
-    //resolver um erro aqui. aula 5 t3
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
-        model.addAttribute("usuarios", bo.lista());
+        model.addAttribute("usuarios", usuarioBO.lista());
         return new ModelAndView("/usuario/lista", model);
+    }
+    @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
+    public ModelAndView edita(@PathVariable("id") Long id, ModelMap model) {
+        try {
+            model.addAttribute("usuario", usuarioBO.pesquisaPeloId(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ModelAndView("/usuario/formulario", model);
+    }
+
+    @RequestMapping(value = "/inativa/{id}", method = RequestMethod.GET)
+    public String inativa(@PathVariable("id") Long id, RedirectAttributes attr) {
+        System.out.println(id);
+        try {
+            Usuario usuario = usuarioBO.pesquisaPeloId(id);
+            usuarioBO.inativa(usuario);
+            attr.addFlashAttribute("feedback", "Usuario foi inativado com sucesso");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/usuarios";
+    }
+
+    @RequestMapping(value = "/ativa/{id}", method = RequestMethod.GET)
+    public String ativa(@PathVariable("id") Long id, RedirectAttributes attr) {
+        System.out.println(id);
+        try {
+            Usuario usuario = usuarioBO.pesquisaPeloId(id);
+            usuarioBO.ativa(usuario);
+            attr.addFlashAttribute("feedback", "Usuario foi ativado com sucesso");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/usuarios";
     }
 }

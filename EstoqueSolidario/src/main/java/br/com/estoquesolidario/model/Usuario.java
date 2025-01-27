@@ -37,6 +37,9 @@ public class Usuario {
 
     private boolean ativo;
 
+    public Usuario() {
+        this.ativo = true;
+    }
     public Long getId() {
         return id;
     }
