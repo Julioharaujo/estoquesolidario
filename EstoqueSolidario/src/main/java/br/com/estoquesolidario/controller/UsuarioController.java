@@ -34,6 +34,6 @@ public class UsuarioController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
         model.addAttribute("usuarios", bo.lista());
-        return new ModelAndView("/usuario/lista", model);
+        return new ModelAndView("usuario/lista", model);
     }
 }
