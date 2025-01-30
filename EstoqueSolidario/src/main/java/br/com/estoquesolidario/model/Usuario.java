@@ -26,10 +26,10 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
 
-    @Column(length =10)
+    @Column(length = 10)
     private String telefone;
 
-    @Column(length =11)
+    @Column(length = 11)
     private String celular;
 
     @Column(length =50)
@@ -37,6 +37,9 @@ public class Usuario {
 
     private boolean ativo;
 
+    public Usuario() {
+        this.ativo = true;
+    }
     public Long getId() {
         return id;
     }

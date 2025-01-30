@@ -26,7 +26,7 @@ public class UsuarioBOTest {
     public void insere( ){
         Usuario usuario = new  Usuario();
         usuario.setNome("Mario Bros");
-        usuario.setCpf("0123456789");
+        usuario.setCpf("01234567899");
         usuario.setDataDeNascimento(LocalDate.of(2000,1,25));
         usuario.setSexo(Sexo.MASCULINO);
         usuario.setTelefone("0123456789");
