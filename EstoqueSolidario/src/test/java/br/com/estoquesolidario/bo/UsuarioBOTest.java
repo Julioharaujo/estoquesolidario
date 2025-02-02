@@ -1,5 +1,6 @@
 package br.com.estoquesolidario.bo;
 
+import br.com.estoquesolidario.model.Perfil;
 import br.com.estoquesolidario.model.Sexo;
 import br.com.estoquesolidario.model.Usuario;
 import org.junit.jupiter.api.MethodOrderer;
@@ -32,6 +33,7 @@ public class UsuarioBOTest {
         usuario.setTelefone("0123456789");
         usuario.setCelular("11987654321");
         usuario.setAtivo(true);
+        usuario.setPerfil(Perfil.ADMINISTRADOR); //Adicionando o Perfil no teste
         usuario.setEmail("mario@mario.com.br");
         bo.insere(usuario);
     }

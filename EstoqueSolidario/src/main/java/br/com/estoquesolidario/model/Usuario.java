@@ -37,6 +37,9 @@ public class Usuario {
 
     private boolean ativo;
 
+    @Enumerated(EnumType.STRING)
+    private Perfil perfil;
+
     public Usuario() {
         this.ativo = true;
     }
@@ -110,5 +113,13 @@ public class Usuario {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
     }
 }
