@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/usuarios")
+//http://localhost:8080/usuarios
 public class UsuarioController {
 
     @Autowired
