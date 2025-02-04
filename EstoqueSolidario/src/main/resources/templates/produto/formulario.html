@@ -26,8 +26,8 @@
                 </div>
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <label for="dataDeVencimento">Data de Vencimento</label>
-                        <input type="date" class="form-control" id="dataDeVencimento" th:field="*{dataDeVencimento}" required>
+                        <label for="dataDeValidade">Data de Vencimento</label>
+                        <input type="date" class="form-control" id="dataDeValidade" th:field="*{dataDeValidade}" required>
                     </div>
 
                     <div class="col-6 mb-3">
@@ -40,9 +40,10 @@
                         <label for="categoria">Tipo de Alimento</label>
                         <select class="form-select" id="categoria" th:field="*{categoria}">
                             <option value="">Selecione uma categoria</option>
-                            <option th:each = "categoria : ${T(br.com.estoquesolidario.model.categoria}"
+                            <option th:each="categoria : ${T(br.com.estoquesolidario.model.Categoria).values()}"
                                     th:value="${categoria}"
-                                    th:text ="${categoria.descricao}"></option>
+                                    th:text="${categoria.descricao}">
+                            </option>
                         </select>
                     </div>
                 </div>
