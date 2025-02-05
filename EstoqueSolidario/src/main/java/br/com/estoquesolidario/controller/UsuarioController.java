@@ -3,6 +3,7 @@ package br.com.estoquesolidario.controller;
 import br.com.estoquesolidario.bo.UsuarioBO;
 import br.com.estoquesolidario.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -29,6 +30,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public String salva(@ModelAttribute Usuario usuario, Model model) {
         usuarioBO.insere(usuario);
         return "redirect:/usuarios";

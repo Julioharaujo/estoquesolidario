@@ -1,5 +1,7 @@
 package br.com.estoquesolidario;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,6 +19,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+
+    private static final Logger log = LoggerFactory.getLogger(SecurityConfiguration.class);
 
     @Bean
     public static BCryptPasswordEncoder passwordEncoder(){
@@ -40,19 +44,18 @@ public class SecurityConfiguration {
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder().encode("12345"))
-                .roles("USUARIO", "ADMININISTRADOR")
+                .roles("USUARIO", "ADMINISTRADOR")
                 .build();
         return new InMemoryUserDetailsManager(user, admin);
-
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.GET, "/nota-entrada").hasRole("ADMINISTRADOR")
-                .requestMatchers(HttpMethod.GET, "/nota-saida").hasRole("ADMINISTRADOR")
                 .requestMatchers(HttpMethod.GET, "/estoque").hasRole("ADMINISTRADOR")
+                //.requestMatchers(HttpMethod.GET, "/usuarios/novo").hasRole("ADMINISTRADOR")//teste
                 .anyRequest()
                 .authenticated()
             )
@@ -64,6 +67,7 @@ public class SecurityConfiguration {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login")
             );
+
         return http.build();
     }
 }

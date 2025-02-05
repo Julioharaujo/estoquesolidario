@@ -42,7 +42,7 @@ public class ProdutoController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
         model.addAttribute("produtos", produtoBO.lista());
-        return new ModelAndView("/produto/lista", model);
+        return new ModelAndView("produto/lista", model);
     }
 
     //http://localhost:8080/produtos/edita/id
