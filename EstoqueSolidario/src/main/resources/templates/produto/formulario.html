@@ -40,9 +40,10 @@
                         <label for="categoria">Tipo de Alimento</label>
                         <select class="form-select" id="categoria" th:field="*{categoria}">
                             <option value="">Selecione uma categoria</option>
-                            <option th:each = "categoria : ${T(br.com.estoquesolidario.model.categoria}"
+                            <option th:each="categoria : ${T(br.com.estoquesolidario.model.Categoria).values()}"
                                     th:value="${categoria}"
-                                    th:text ="${categoria.descricao}"></option>
+                                    th:text="${categoria.descricao}">
+                            </option>
                         </select>
                     </div>
                 </div>
