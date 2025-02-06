@@ -1,5 +1,6 @@
 package br.com.estoquesolidario.dao;
 
+import br.com.estoquesolidario.model.Perfil;
 import br.com.estoquesolidario.model.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -25,6 +26,12 @@ public class UsuarioDAO implements CRUD<Usuario, Long>{
     public List<Usuario> lista() {
         Query query = entityManager.createQuery("select c from Usuario c");
         return (List<Usuario>) ((jakarta.persistence.Query) query).getResultList();
+    }
+
+    public List<Usuario> listaPorPerfil(Perfil perfil) {
+        Query query = entityManager.createQuery("SELECT u FROM Usuario u WHERE u.perfil = :perfil");
+        query.setParameter("perfil", perfil);
+        return (List<Usuario>) query.getResultList();
     }
 
     @Override

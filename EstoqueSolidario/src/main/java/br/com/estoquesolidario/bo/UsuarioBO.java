@@ -2,6 +2,7 @@ package br.com.estoquesolidario.bo;
 
 import br.com.estoquesolidario.dao.CRUD;
 import br.com.estoquesolidario.dao.UsuarioDAO;
+import br.com.estoquesolidario.model.Perfil;
 import br.com.estoquesolidario.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,10 @@ public class UsuarioBO implements CRUD<Usuario, Long> {
     @Override
     public List<Usuario> lista() {
         return dao.lista();
+    }
+
+    public List<Usuario> listaDoadores() {
+        return dao.listaPorPerfil(Perfil.DOADOR);  // Usando o enum ao invés da string
     }
 
     @Override

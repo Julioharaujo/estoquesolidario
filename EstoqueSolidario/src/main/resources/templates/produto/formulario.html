@@ -37,7 +37,7 @@
                 </div>
                 <div class="row">
                     <div class="col-4 mb-3">
-                        <label for="categoria">Tipo de Alimento</label>
+                        <label for="categoria">Categoria</label>
                         <select class="form-select" id="categoria" th:field="*{categoria}">
                             <option value="">Selecione uma categoria</option>
                             <option th:each="categoria : ${T(br.com.estoquesolidario.model.Categoria).values()}"
