@@ -40,41 +40,11 @@
                         <input class="form-control" id="totalItens" th:field="*{notaEntrada.totalItens}" step="any" type="number" readonly/>
                     </div>
                 </div>
-                <!--
-                                <div th:if="${notaEntrada.id != null}" class="mb-3">
-                                    <a class="btn btn-sm btn-success" th:href="@{/nota-entrada/{id}/item(id=${notaEntrada.id})}">Adicionar produto</a>
-                                    <table class="table table-hover">
-                                        <thead>
-                                        <tr>
-                                            <td><b>PRODUTO</b></td>
-                                            <td><b>QTDE</b></td>
-                                            <td><b>VALOR UNT (R$)</b></td>
-                                            <td><b>VALOR TOTAL (R$)</b></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="item : ${notaEntrada.itens}">
-                                            <td th:text="${item.produto.nome}"></td>
-                                            <td th:text="${item.quantidade}"></td>
-                                            <td th:text="${#numbers.formatDecimal(item.valorUnitario, 0, 'POINT', 2, 'COMMA')}"></td>
-                                            <td th:text="${#numbers.formatDecimal(item.valorTotal, 0, 'POINT', 2, 'COMMA')}"></td>
-                                            <td>
-                                                <a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada-item/edita/{id}(id=${item.id})}">Editar</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada-item/remove/{id}(id=${item.id})}">Remover</a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                -->
                 <div class="mb-3">
                     <input class="btn btn-primary" type="submit" value="Salvar"/>
                 </div>
             </form>
+            <a class="btn btn-sm btn-success" th:href="@{/nota-entrada/{id}/item(id=${notaEntrada.id})}">Adicionar produto</a>
         </div>
     </div>
 </div>
