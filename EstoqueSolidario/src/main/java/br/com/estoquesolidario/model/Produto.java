@@ -16,10 +16,6 @@ public class Produto {
     @Column(nullable = false,length = 50)
     private String nome;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @Column(name="data_vencimento",columnDefinition = "DATE")
-    private LocalDate dataDeValidade;
-
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
@@ -42,13 +38,6 @@ public class Produto {
         this.nome = nome;
     }
 
-    public LocalDate getDataDeValidade() {
-        return dataDeValidade;
-    }
-
-    public void setDataDeValidade(LocalDate dataDeValidade) {
-        this.dataDeValidade = dataDeValidade;
-    }
 
     public Categoria getCategoria() {
         return categoria;

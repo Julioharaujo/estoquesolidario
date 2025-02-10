@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-<div th:replace="fragments/menu :: menu"></div>
+<div th:replace="~{fragments/menu :: menu}"></div>
 
 <div class="container">
     <div class="bg-light p-5 rounded">
@@ -38,6 +38,37 @@
                     <div class="col-4 mb-3">
                         <label class="form-label" for="totalItens">Total Itens</label>
                         <input class="form-control" id="totalItens" th:field="*{notaEntrada.totalItens}" step="any" type="number" readonly/>
+                    </div>
+                    <div th:if="${notaEntrada.id != null}" class="mb-3">
+                        <a class="btn btn-sm btn-success" th:href="@{/nota-entrada/{id}/item(id=${notaEntrada.id})}">Adicionar produto</a>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td><b>PRODUTO</b></td>
+                                <th>CATEGORIA</th>
+                                <td><b>QTDE</b></td>
+                                <td><b>DATA DE VALIDADE</b></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="item : ${notaEntrada.itens}">
+                                <td th:text="${item.produto.nome}"></td>
+                                <td th:text="${item.categoria}"></td>
+                                <td th:text="${item.quantidade}"></td>
+                                <td th:text="${#temporals.format(item.dataDeValidade, 'dd/MM/yyyy')}"></td>
+                                <td>
+                                    <a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada-item/edita/{id}(id=${item.id})}">Editar</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada-item/remove/{id}(id=${item.id})}">Remover</a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="mb-3">

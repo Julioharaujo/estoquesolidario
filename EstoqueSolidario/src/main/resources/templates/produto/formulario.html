@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    <div th:replace="fragments/menu  :: menu"></div>
+    <div th:replace="~{fragments/menu :: menu}"></div>
     <div class="container">
         <div class="bg-light p-5 rounded">
             <br>
@@ -25,18 +25,12 @@
                     <input type="text" class="form-control" id="nome" th:field="*{nome}" required>
                 </div>
                 <div class="row">
-                    <div class="col-6 mb-3">
-                        <label for="dataDeValidade">Data de Vencimento</label>
-                        <input type="date" class="form-control" id="dataDeValidade" th:field="*{dataDeValidade}" required>
-                    </div>
 
                     <div class="col-6 mb-3">
                         <label for="tamanho">Tamanho</label>
                         <input type="text" class="form-control" id="tamanho" th:field="*{tamanho}">
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-4 mb-3">
+                    <div class="col-6 mb-3">
                         <label for="categoria">Categoria</label>
                         <select class="form-select" id="categoria" th:field="*{categoria}">
                             <option value="">Selecione uma categoria</option>

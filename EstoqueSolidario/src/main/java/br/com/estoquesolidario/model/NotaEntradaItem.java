@@ -1,6 +1,9 @@
 package br.com.estoquesolidario.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name="nota_entrada_itens")
@@ -19,6 +22,10 @@ public class NotaEntradaItem {
     private NotaEntrada notaEntrada;
 
     private Integer quantidade;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Column(name="data_validade",columnDefinition = "DATE")
+    private LocalDate dataDeValidade;
 
     public Long getId() {
         return id;
@@ -50,5 +57,13 @@ public class NotaEntradaItem {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public LocalDate getDataDeValidade() {
+        return dataDeValidade;
+    }
+
+    public void setDataDeValidade(LocalDate dataDeValidade) {
+        this.dataDeValidade = dataDeValidade;
     }
 }

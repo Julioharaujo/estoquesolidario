@@ -13,7 +13,7 @@
   </style>
 </head>
 <body>
-<div th:replace="fragments/menu  :: menu"></div>
+<div th:replace="~{fragments/menu :: menu}"></div>
 
 <div class="container">
   <div class="bg-light p-5 rounded">
@@ -24,12 +24,12 @@
         <input id="id" type="hidden" th:field="*{id}"/>
         <div class="row">
           <h5>Dados da Nota</h5>
-          <div class="col-2 mb-3">
+          <div class="col-4 mb-3">
             <label class="form-label" for="notaEntrada">Número</label>
             <input class="form-control" id="notaEntrada"
                    th:field="*{notaEntrada.id}" type="text" readonly/>
           </div>
-          <div class="col-4 mb-3">
+          <div class="col-8 mb-3">
             <label class="form-label" for="usuario">Doador</label>
             <input class="form-control" id="usuario"
                    th:field="*{notaEntrada.usuario.nome}" type="text" readonly/>
@@ -38,7 +38,7 @@
         <br />
         <div class="row">
           <h5>Dados do Item</h5>
-          <div class="col-3 mb-3">
+          <div class="col-4 mb-3">
             <label class="form-label" for="produto">Produto</label>
             <select class="form-select" id="produto" th:field="*{produto.id}">
               <option value="">Selecione um produto</option>
@@ -48,9 +48,14 @@
             </select>
           </div>
 
-          <div class="col-2 mb-3">
+          <div class="col-4 mb-3">
             <label class="form-label" for="quantidade">Quantidade</label>
             <input class="form-control" id="quantidade" th:field="*{quantidade}" type="number"/>
+          </div>
+
+          <div class="col-4 mb-3">
+            <label class="form-label" for="dataDeValidade">Data de Validade</label>
+            <input class="form-control" id="dataDeValidade" th:field="*{dataDeValidade}" type="date"/>
           </div>
         </div>
         <div class="mb-3">

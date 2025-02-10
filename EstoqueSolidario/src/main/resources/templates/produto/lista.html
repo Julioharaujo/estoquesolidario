@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-    <div th:replace="fragments/menu  :: menu"></div>
+    <div th:replace="~{fragments/menu :: menu}"></div>
     <div class="container">
         <h2>Produtos</h2>
         <tr>
@@ -23,7 +23,6 @@
             <thead>
             <tr>
                 <th>NOME</th>
-                <!-- <th>DATA DE VENCIMENTO</th> -->
                 <th>CATEGORIA</th>
                 <th>TAMANHO</th>
             </tr>
@@ -31,7 +30,6 @@
             <tbody>
             <tr th:each="produto : ${produtos}">
                 <td th:text="${produto.nome}"></td>
-                <!-- <td th:text="${#temporals.format(produto.dataDeVencimento, 'dd/MM/yyyy')}"></td>-->
                 <td th:text="${produto.categoria}"></td>
                 <td th:text="${produto.tamanho}"></td>
                 <td>
