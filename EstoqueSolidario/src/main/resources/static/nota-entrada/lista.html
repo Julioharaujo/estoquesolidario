@@ -34,7 +34,8 @@
                 <td th:text="${#temporals.format(nota.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
                 <td th:text="${#numbers.formatInteger(nota.totalItens, }"></td>
                 <td>
-                    <a th:href="@{/nota-entrada/edita/{id}(id=${nota.id})}" class="btn btn-sm btn-secondary">Editar</a>
+                    <!--<a th:href="@{/nota-entrada/edita/{id}(id=${nota.id})}" class="btn btn-sm btn-secondary">Editar</a>-->
+                    <a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada/edita/{id}(id=${nota.id})}">Editar</a>
                 </td>
                 <td>
                     <a th:href="@{/nota-entrada/remove/{id}(id=${nota.id})}" class="btn btn-sm btn-secondary">Remover</a>

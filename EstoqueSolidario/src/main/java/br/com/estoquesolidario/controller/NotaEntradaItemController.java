@@ -40,10 +40,6 @@ public class NotaEntradaItemController {
         if (produtoId == null) {
             result.rejectValue("produto","field.required");
         }
-        // validação do produto
-
-
-        //validação duplicidade
 
         if (notaEntradaItemBO.itemJaAdicionado(notaEntradaItem)){
             result.rejectValue("produto","duplicate");
@@ -51,7 +47,7 @@ public class NotaEntradaItemController {
 
         if (result.hasErrors()){
             model.addAttribute("produtos", produtoBO.lista());
-            return  "nota-entrada-item/formulario";
+            return  "/nota-entrada-item/formulario";
         }
 
         NotaEntrada notaEntrada = notaEntradaBO.pesquisaPeloId(notaEntradaItem.getNotaEntrada().getId());

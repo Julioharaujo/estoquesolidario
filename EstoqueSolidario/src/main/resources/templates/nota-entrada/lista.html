@@ -32,7 +32,7 @@
             <tr th:each="nota : ${notas}">
                 <td th:text="${nota.usuario.nome}"></td>
                 <td th:text="${#temporals.format(nota.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
-                <td>conteudo temporario</td>
+                <td th:text="${#numbers.formatDecimal(nota.totalItens, 0, 'POINT', 0, 'COMMA')}"></td>
                 <!--<td th:text="${#numbers.formatInteger(nota.totalItens, }"></td> -->
                 <td>
                     <a th:href="@{/nota-entrada/edita/{id}(id=${nota.id})}" class="btn btn-sm btn-secondary">Editar</a>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,29 +37,38 @@ public class NotaEntradaController {
         Long usuarioId = null;
         //model.addAttribute("usuarioId", usuarioId);
         model.addAttribute("notaEntrada",new NotaEntrada());
-        model.addAttribute("usuarios", usuarioBO.listaDoadores());// precisa selecionar apenas perfil doador
-        return new ModelAndView("nota-entrada/formulario.html", model);
+        model.addAttribute("usuarios", usuarioBO.listaDoadores());
+        return new ModelAndView("/nota-entrada/formulario.html", model);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String salva(@ModelAttribute NotaEntrada notaEntrada, RedirectAttributes attr) {
-        try {
-            if (notaEntrada.getId() == null) {
-                notaEntradaBO.insere(notaEntrada);
-            } else {
-                notaEntradaBO.atualiza(notaEntrada);
-            }
-            attr.addFlashAttribute("feedback", "Nota de entrada salva com sucesso!");
-        } catch (Exception e) {
-            attr.addFlashAttribute("erro", "Erro ao salvar a nota de entrada: " + e.getMessage());
+    public String salva(@ModelAttribute NotaEntrada notaEntrada,
+                        BindingResult result,
+                        RedirectAttributes attr,
+                        ModelMap model) {
+        if (notaEntrada.getUsuario().getId() == null) {
+            result.rejectValue("usuario", "field.required");
         }
+
+        if (result.hasErrors()) {
+            model.addAttribute("usuarios", usuarioBO.listaDoadores());
+            return "/nota-entrada/formulario.html";
+        }
+        if (notaEntrada.getId() == null) {
+            notaEntradaBO.insere(notaEntrada);
+            attr.addFlashAttribute("feedback", "A nota de entrada foi cadastrada com sucesso!");
+        } else {
+            notaEntradaBO.atualiza(notaEntrada);
+            attr.addFlashAttribute("feedback", "Os dados da nota de entrada foram atualizados com sucesso!");
+        }
+
         return "redirect:/nota-entrada";
     }
 
     @RequestMapping(value="", method=RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
         model.addAttribute("notas", notaEntradaBO.lista());
-        return new ModelAndView("nota-entrada/lista.html", model);
+        return new ModelAndView("/nota-entrada/lista.html", model);
     }
 
     @RequestMapping(value="/{id}/item", method=RequestMethod.GET)
@@ -68,14 +78,17 @@ public class NotaEntradaController {
         nei.setNotaEntrada(ne);
         model.addAttribute("notaEntradaItem",nei);
         model.addAttribute("produtos", produtoBO.lista());
-        return new ModelAndView("nota-entrada-item/formulario",model);
+        return new ModelAndView("/nota-entrada-item/formulario",model);
     }
 
     @RequestMapping(value="/edita/{id}", method=RequestMethod.GET)
     public ModelAndView edita(@PathVariable("id") Long id, ModelMap model) {
+
         model.addAttribute("notaEntradaItem", new NotaEntradaItem());
-        model.addAttribute("usuarios", usuarioBO.listaDoadores());
+        model.addAttribute("usuarios", usuarioBO.lista());//listaDoadores()
         model.addAttribute("notaEntrada", notaEntradaBO.pesquisaPeloId(id));
+        System.out.println("NotaEntrada: " + id);
+
         return new ModelAndView("nota-entrada/formulario", model);
     }
 
