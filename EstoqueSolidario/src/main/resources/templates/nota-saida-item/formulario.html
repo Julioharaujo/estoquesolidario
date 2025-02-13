@@ -17,22 +17,22 @@
 
 <div class="container">
   <div class="bg-light p-5 rounded">
-    <h1>Item da Entrada</h1>
+    <h1>Item da Saída</h1>
     <hr>
     <div>
-      <form th:action="@{/nota-entrada-item}" th:object="${notaEntradaItem}" method="POST">
+      <form th:action="@{/nota-saida-item}" th:object="${notaSaidaItem}" method="POST">
         <input id="id" type="hidden" th:field="*{id}"/>
         <div class="row">
           <h5>Dados da Nota</h5>
           <div class="col-4 mb-3">
-            <label class="form-label" for="notaEntrada">Número</label>
-            <input class="form-control" id="notaEntrada"
-                   th:field="*{notaEntrada.id}" type="text" readonly/>
+            <label class="form-label" for="notaSaida">Número</label>
+            <input class="form-control" id="notaSaida"
+                   th:field="*{notaSaida.id}" type="text" readonly/>
           </div>
           <div class="col-8 mb-3">
-            <label class="form-label" for="usuario">Doador</label>
+            <label class="form-label" for="usuario">Favorecido</label>
             <input class="form-control" id="usuario"
-                   th:field="*{notaEntrada.usuario.nome}" type="text" readonly/>
+                   th:field="*{notaSaida.usuario.nome}" type="text" readonly/>
           </div>
         </div>
         <br />
@@ -76,3 +76,4 @@
 
 </body>
 </html>
+

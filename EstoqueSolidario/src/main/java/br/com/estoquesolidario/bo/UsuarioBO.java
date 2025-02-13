@@ -27,7 +27,11 @@ public class UsuarioBO implements CRUD<Usuario, Long> {
     }
 
     public List<Usuario> listaDoadores() {
-        return dao.listaPorPerfil(Perfil.DOADOR);  // Usando o enum ao invés da string
+        return dao.listaPorPerfil(Perfil.DOADOR);
+    }
+
+    public List<Usuario> listaFavorecidos() {
+        return dao.listaPorPerfil(Perfil.FAVORECIDO);
     }
 
     @Override

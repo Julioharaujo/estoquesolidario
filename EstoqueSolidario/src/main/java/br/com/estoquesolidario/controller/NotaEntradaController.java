@@ -5,10 +5,8 @@ import br.com.estoquesolidario.bo.ProdutoBO;
 import br.com.estoquesolidario.bo.UsuarioBO;
 import br.com.estoquesolidario.model.NotaEntrada;
 import br.com.estoquesolidario.model.NotaEntradaItem;
-import br.com.estoquesolidario.model.Produto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,7 +33,6 @@ public class NotaEntradaController {
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model){
         Long usuarioId = null;
-        //model.addAttribute("usuarioId", usuarioId);
         model.addAttribute("notaEntrada",new NotaEntrada());
         model.addAttribute("usuarios", usuarioBO.listaDoadores());
         return new ModelAndView("/nota-entrada/formulario.html", model);
@@ -99,6 +96,4 @@ public class NotaEntradaController {
         attr.addAttribute("feedback", "Nota de entrada removida com sucesso");
         return  "redirect:/nota-entrada";
     }
-
-
 }

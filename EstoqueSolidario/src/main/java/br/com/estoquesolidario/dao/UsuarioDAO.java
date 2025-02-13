@@ -36,16 +36,19 @@ public class UsuarioDAO implements CRUD<Usuario, Long>{
 
     @Override
     public void insere(Usuario usuario) {
+
         entityManager.persist(usuario);
     }
 
     @Override
     public void atualiza(Usuario usuario) {
+
         entityManager.merge(usuario);
     }
 
     @Override
     public void remove(Usuario usuario) {
+
         entityManager.remove(usuario);
     }
 }
