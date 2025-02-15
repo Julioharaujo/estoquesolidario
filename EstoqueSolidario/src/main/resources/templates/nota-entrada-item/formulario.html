@@ -17,15 +17,15 @@
 
 <div class="container">
   <div class="bg-light p-5 rounded">
-    <h1>Item da Entrada</h1>
+    <h1>Item da Doação</h1>
     <hr>
     <div>
       <form th:action="@{/nota-entrada-item}" th:object="${notaEntradaItem}" method="POST">
         <input id="id" type="hidden" th:field="*{id}"/>
         <div class="row">
-          <h5>Dados da Nota</h5>
+          <h5>Dados da Doação</h5>
           <div class="col-4 mb-3">
-            <label class="form-label" for="notaEntrada">Número</label>
+            <label class="form-label" for="notaEntrada">Id da Doação</label>
             <input class="form-control" id="notaEntrada"
                    th:field="*{notaEntrada.id}" type="text" readonly/>
           </div>
@@ -37,7 +37,7 @@
         </div>
         <br />
         <div class="row">
-          <h5>Dados do Item</h5>
+          <h5>Dados do Produto</h5>
           <div class="col-4 mb-3">
             <label class="form-label" for="produto">Produto</label>
             <select class="form-select" id="produto" th:field="*{produto.id}">

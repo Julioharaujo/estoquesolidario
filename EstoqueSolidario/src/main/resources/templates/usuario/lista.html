@@ -36,10 +36,9 @@
                 <td th:text="${usuario.cpf}"></td>
                 <td th:text="${usuario.perfil}"></td>
                 <td>
-                    <a th:href="@{/usuarios/edita/{id}(id=${usuario.id})}" class="btn btn-sm btn-primary">Editar</a>
-                    <!--Corrigir os botoes ativar e inativar para aparecer apenas 1 por vez-->
-                    <a th:href="@{/usuarios/ativa/{id}(id=${usuario.id})}" class="btn btn-sm btn-success">Ativar</a>
-                    <a th:href="@{/usuarios/inativa/{id}(id=${usuario.id})}" class="btn btn-sm btn-danger">Inativar</a>
+                    <a th:href="@{/usuarios/edita/{id}(id=${usuario.id})}" class="btn  btn-primary">Editar</a>
+                    <a class="btn btn-secundary btn-success" th:if="${usuario.ativo == false}" th:href="@{/usuarios/ativa/{id}(id=${usuario.id})}">Ativar</a>
+                    <a class="btn btn-secundary btn-danger" th:unless="${usuario.ativo == false}" th:href="@{/usuarios/inativa/{id}(id=${usuario.id})}">Inativar</a>
                 </td>
             </tr>
             </tbody>
