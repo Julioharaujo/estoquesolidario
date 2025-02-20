@@ -34,7 +34,11 @@ public class ProdutoController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String salva(@ModelAttribute Produto produto, Model model) {
-        produtoBO.insere(produto);
+        if (produto.getId() == null) {
+            produtoBO.insere(produto); // Insere um novo produto
+        } else {
+            produtoBO.atualiza(produto); // Atualiza um produto existente
+        }
         return "redirect:/produtos";
     }
 
