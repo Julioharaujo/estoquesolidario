@@ -4,11 +4,12 @@ import br.com.estoquesolidario.bo.ProdutoBO;
 import br.com.estoquesolidario.bo.ProdutoEstoqueBO;
 import br.com.estoquesolidario.dao.ProdutoEstoqueDAO;
 import br.com.estoquesolidario.model.*;
-import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,11 +42,20 @@ public class ProdutoController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String salva(@ModelAttribute Produto produto, Model model) {
+    public String salva(@Valid @ModelAttribute Produto produto,
+                        BindingResult result,
+                        RedirectAttributes attr,
+                        Model model) {
+        if (result.hasErrors()) {
+            return "produto/formulario";
+        }
+
         if (produto.getId() == null) {
             produtoBO.insere(produto); // Insere um novo produto
+            attr.addFlashAttribute("feedback", "O Produto foi cadastrado com sucesso");
         } else {
             produtoBO.atualiza(produto); // Atualiza um produto existente
+            attr.addFlashAttribute("feedback", "O Produto foi atualizado com sucesso");
         }
         return "redirect:/produtos";
     }

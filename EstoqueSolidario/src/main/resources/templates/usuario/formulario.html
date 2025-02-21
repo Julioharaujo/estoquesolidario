@@ -29,16 +29,19 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="nome">Nome</label>
-                    <input type="text" class="form-control" id="nome" th:field="*{nome}" required>
+                    <input type="text" class="form-control" id="nome" th:field="*{nome}">
+                    <span style="color: red" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
                 </div>
                 <div class="row">
                     <div class="col-4 mb-3">
                         <label for="cpf">CPF</label>
-                        <input type="text" class="form-control" id="cpf" th:field="*{cpf}" required>
+                        <input type="text" class="form-control" id="cpf" th:field="*{cpf}">
+                        <span style="color: red" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
                     </div>
                     <div class="col-4 mb-3">
                         <label for="dataDeNascimento">Data de Nascimento</label>
-                        <input type="date" class="form-control" id="dataDeNascimento" th:field="*{dataDeNascimento}" required>
+                        <input type="date" class="form-control" id="dataDeNascimento" th:field="*{dataDeNascimento}">
+                        <span style="color: red" th:if="${#fields.hasErrors('dataDeNascimento')}" th:errors="*{dataDeNascimento}"></span>
                     </div>
                     <div class="col-4 mb-3">
                         <label>Sexo</label>
@@ -46,6 +49,7 @@
                             <option value="">Selecione o Sexo</option>
                             <option value="MASCULINO">Masculino</option>
                             <option value="FEMININO">Feminino</option>
+                            <span style="color: red" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></span>
                         </select>
                     </div>
                 </div>
@@ -62,10 +66,12 @@
                 <div class="form-group mb-3">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" th:field="*{email}">
+                    <span style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                 </div>
                 <div class="col-2 mb-3">
                     <label for="perfil">Perfil</label>
                     <select class="form-control" id="perfil" th:field="*{perfil}">
+                        <option value="">Selecione o Perfil</option>
                         <option th:each="perfil : ${T(br.com.estoquesolidario.model.Perfil).values()}"
                                 th:value="${perfil}"
                                 th:text="${perfil.descricao}"></option>
@@ -76,5 +82,18 @@
             </form>
         </div>
     </div>
+
+    <script crossorigin="anonymous" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+    <script crossorigin="anonymous" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js" integrity="sha512-d4KkQohk+HswGs6A1d6Gak6Bb9rMWtxjOa0IiY49Q3TeFd5xAzjWXDCBW9RS7m86FQ4RzM2BdHmdJnnKRYknxw=="></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#cpf').mask('999.999.999-99');
+            $('#telefone').mask('(99) 9999-9999');
+            $('#celular').mask('(99) 99999-9999');
+        });
+    </script>
+
+</body>
 </body>
 </html>

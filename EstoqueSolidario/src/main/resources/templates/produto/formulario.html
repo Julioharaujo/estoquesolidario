@@ -23,13 +23,15 @@
                 <input type="hidden" th:field="*{id}" />
                 <div class="form-group mb-3">
                     <label for="nome">Nome</label>
-                    <input type="text" class="form-control" id="nome" th:field="*{nome}" required>
+                    <input type="text" class="form-control" id="nome" th:field="*{nome}">
+                    <span style="color: red" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
                 </div>
                 <div class="row">
 
                     <div class="col-6 mb-3">
-                        <label for="tamanho">Tamanho</label>
+                        <label for="tamanho">Tamanho da embalagem</label>
                         <input type="text" class="form-control" id="tamanho" th:field="*{tamanho}">
+                        <span style="color: red" th:if="${#fields.hasErrors('tamanho')}" th:errors="*{tamanho}"></span>
                     </div>
                     <div class="col-6 mb-3">
                         <label for="categoria">Categoria</label>
@@ -40,6 +42,7 @@
                                     th:text="${categoria.descricao}">
                             </option>
                         </select>
+                        <span style="color: red" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></span>
                     </div>
                 </div>
                 <br>

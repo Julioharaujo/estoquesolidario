@@ -3,11 +3,13 @@ package br.com.estoquesolidario.controller;
 import br.com.estoquesolidario.bo.UsuarioBO;
 import br.com.estoquesolidario.model.NotaEntrada;
 import br.com.estoquesolidario.model.Usuario;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +34,14 @@ public class UsuarioController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ADMINISTRADOR')")
-    public String salva(@ModelAttribute Usuario usuario, Model model) {
+    public String salva(@Valid @ModelAttribute Usuario usuario,
+                        BindingResult result,
+                        Model model) {
+
+        if (result.hasErrors()) {
+            return "usuario/formulario";
+        }
+
         usuarioBO.insere(usuario);
         return "redirect:/usuarios";
         //inserir metodo usuarioBO.atualisa();

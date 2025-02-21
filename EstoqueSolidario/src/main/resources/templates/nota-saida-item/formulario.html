@@ -17,13 +17,13 @@
 
 <div class="container">
   <div class="bg-light p-5 rounded">
-    <h1>Item da Saída</h1>
+    <h1>Item da Doação</h1>
     <hr>
     <div>
       <form th:action="@{/nota-saida-item}" th:object="${notaSaidaItem}" method="POST">
         <input id="id" type="hidden" th:field="*{id}"/>
         <div class="row">
-          <h5>Dados da Nota</h5>
+          <h5>Dados da Doação</h5>
           <div class="col-4 mb-3">
             <label class="form-label" for="notaSaida">Número</label>
             <input class="form-control" id="notaSaida"

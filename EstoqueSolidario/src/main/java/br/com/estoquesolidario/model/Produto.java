@@ -1,6 +1,8 @@
 package br.com.estoquesolidario.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -13,14 +15,17 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Informe o nome do Produto")
     @Column(nullable = false,length = 50)
     private String nome;
 
+    @NotNull(message = "Informe a Categoria")
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-    @Column(nullable = false,length =20)
-    private String Tamanho ;
+    @NotBlank(message = "Informe o tamanho da embalagem")
+    @Column(nullable = false,length = 20)
+    private String tamanho;
 
     public Long getId() {
         return id;
@@ -48,10 +53,10 @@ public class Produto {
     }
 
     public String getTamanho() {
-        return Tamanho;
+        return tamanho;
     }
 
     public void setTamanho(String tamanho) {
-        Tamanho = tamanho;
+        this.tamanho = tamanho;
     }
 }

@@ -35,7 +35,7 @@
                 <td th:text="${#numbers.formatDecimal(nota.totalItens, 0, 'POINT', 0, 'COMMA')}"></td>
                 <!--<td th:text="${#numbers.formatInteger(nota.totalItens, }"></td> -->
                 <td>
-                    <a th:href="@{/nota-entrada/edita/{id}(id=${nota.id})}" class="btn btn-sm btn-secondary">Adicionar Produto</a>
+                    <a th:href="@{/nota-entrada/edita/{id}(id=${nota.id})}" class="btn btn-sm btn-secondary">Adicionar Produtos</a>
                 </td>
                 <td>
                     <a th:href="@{/nota-entrada/remove/{id}(id=${nota.id})}" class="btn btn-sm btn-secondary">Remover</a>
