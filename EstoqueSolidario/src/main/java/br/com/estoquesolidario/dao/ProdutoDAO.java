@@ -39,6 +39,14 @@ public class ProdutoDAO implements CRUD<Produto, Long>{
 
     @Override
     public void remove(Produto produto) {
-        entityManager.remove(produto);
+        try {
+            System.out.println("Produto encontrado: " + produto);
+            entityManager.remove(produto);
+            System.out.println("Produto removido do banco com sucesso!");
+        } catch (Exception e) {
+            System.out.println("Produto encontrado: " + produto);
+            System.err.println("Erro ao remover produto: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

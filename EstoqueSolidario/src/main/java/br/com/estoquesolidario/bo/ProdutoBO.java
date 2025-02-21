@@ -39,6 +39,7 @@ public class ProdutoBO implements CRUD<Produto, Long> {
 
     @Override
     public void remove(Produto produto) {
+        dao.pesquisaPeloId(produto.getId());
         dao.remove(produto);
     }
 }

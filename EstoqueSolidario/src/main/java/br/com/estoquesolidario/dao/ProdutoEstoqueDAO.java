@@ -30,16 +30,42 @@ public class ProdutoEstoqueDAO implements CRUD<ProdutoEstoque, Long>{
 
     @Override
     public void insere(ProdutoEstoque produtoEstoque) {
+
         entityManager.persist(produtoEstoque);
     }
 
     @Override
     public void atualiza(ProdutoEstoque produtoEstoque) {
+
         entityManager.merge(produtoEstoque);
     }
 
     @Override
     public void remove(ProdutoEstoque produtoEstoque) {
+
         entityManager.remove(produtoEstoque);
+    }
+
+    public Integer verificaQuantidadePorProdutoId(Long produtoId) {
+        try {
+            Query query = entityManager.createQuery(
+                    "SELECT pe.quantidade FROM ProdutoEstoque pe WHERE pe.produto.id = :produtoId");
+            query.setParameter("produtoId", produtoId);
+            return (Integer) query.getSingleResult(); // Retorna a quantidade ou null se não encontrado
+        } catch (Exception e) {
+            return null; // Trata exceções, como nenhum registro encontrado
+        }
+    }
+
+
+    public ProdutoEstoque buscaPorProdutoId(Long produtoId) {
+        try {
+            Query query = entityManager.createQuery(
+                    "SELECT pe FROM ProdutoEstoque pe WHERE pe.produto.id = :produtoId");
+            query.setParameter("produtoId", produtoId);
+            return (ProdutoEstoque) query.getSingleResult(); // Retorna o ProdutoEstoque ou null se não encontrado
+        } catch (Exception e) {
+            return null; // Trata exceções, como nenhum registro encontrado
+        }
     }
 }

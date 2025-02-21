@@ -36,9 +36,10 @@
                 <td th:text="${usuario.cpf}"></td>
                 <td th:text="${usuario.perfil}"></td>
                 <td>
-                    <a th:href="@{/usuarios/edita/{id}(id=${usuario.id})}" class="btn  btn-primary">Editar</a>
+                    <a class="btn  btn-primary" th:href="@{/usuarios/edita/{id}(id=${usuario.id})}" >Editar</a>
                     <a class="btn btn-secundary btn-success" th:if="${usuario.ativo == false}" th:href="@{/usuarios/ativa/{id}(id=${usuario.id})}">Ativar</a>
                     <a class="btn btn-secundary btn-danger" th:unless="${usuario.ativo == false}" th:href="@{/usuarios/inativa/{id}(id=${usuario.id})}">Inativar</a>
+                    <a class="btn btn-secondary" th:href="@{/usuarios/remove/{id}(id=${usuario.id})}" >Remover</a>
                 </td>
             </tr>
             </tbody>

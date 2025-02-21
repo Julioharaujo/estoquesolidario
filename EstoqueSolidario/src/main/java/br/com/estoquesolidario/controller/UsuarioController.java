@@ -1,6 +1,7 @@
 package br.com.estoquesolidario.controller;
 
 import br.com.estoquesolidario.bo.UsuarioBO;
+import br.com.estoquesolidario.model.NotaEntrada;
 import br.com.estoquesolidario.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -80,5 +81,13 @@ public class UsuarioController {
             e.printStackTrace();
         }
         return "redirect:/usuarios";
+    }
+
+    @RequestMapping(value="remove/{id}", method=RequestMethod.GET)
+    public String remove(@PathVariable("id") Long id, RedirectAttributes attr) {
+        Usuario usuario = usuarioBO.pesquisaPeloId(id);
+        usuarioBO.remove(usuario);
+        attr.addAttribute("feedback", "Usuário removido com sucesso");
+        return  "redirect:/usuarios";
     }
 }
