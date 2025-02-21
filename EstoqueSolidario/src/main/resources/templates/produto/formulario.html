@@ -20,6 +20,7 @@
             <h2>Dados do Produto</h2>
             <hr>
             <form action="/produtos" method="post" th:object="${produto}">
+                <input type="hidden" th:field="*{id}" />
                 <div class="form-group mb-3">
                     <label for="nome">Nome</label>
                     <input type="text" class="form-control" id="nome" th:field="*{nome}" required>
