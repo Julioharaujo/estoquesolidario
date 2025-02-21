@@ -26,14 +26,15 @@
                 <div class="row">
                     <div class="col-4 mb-3">
                         <label class="form-label" for="usuario">Doador</label>
-                        <select class="form-select" id="usuario" th:field="*{notaEntrada.usuario.id}">
-                            <option value="">Selecione um doador</option>
-                            <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nome}"></option>
-                        </select>
+                        <input class="form-control" id="usuario" th:field="*{notaEntrada.usuario.nome}" readonly/>
+<!--                        <select class="form-select" id="usuario" th:field="*{notaEntrada.usuario.id}">-->
+<!--                            <option value="">Selecione um doador</option>-->
+<!--                            <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nome}"></option>-->
+<!--                        </select>-->
                     </div>
                     <div class="col-4 mb-3">
                         <label class="form-label" for="dataHora">Data da doação</label>
-                        <input class="form-control" id="dataHora" type="datetime-local" th:field="*{notaEntrada.dataHora}"/>
+                        <input class="form-control" id="dataHora" type="datetime-local" th:field="*{notaEntrada.dataHora}" readonly/>
                     </div>
                     <div class="col-4 mb-3">
                         <label class="form-label" for="totalItens">Total Itens</label>

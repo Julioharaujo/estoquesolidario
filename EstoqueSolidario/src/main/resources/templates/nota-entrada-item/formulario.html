@@ -24,12 +24,12 @@
         <input id="id" type="hidden" th:field="*{id}"/>
         <div class="row">
           <h5>Dados da Doação</h5>
-          <div class="col-4 mb-3">
+          <div class="col-2 mb-3">
             <label class="form-label" for="notaEntrada">Id da Doação</label>
             <input class="form-control" id="notaEntrada"
                    th:field="*{notaEntrada.id}" type="text" readonly/>
           </div>
-          <div class="col-8 mb-3">
+          <div class="col-4 mb-3">
             <label class="form-label" for="usuario">Doador</label>
             <input class="form-control" id="usuario"
                    th:field="*{notaEntrada.usuario.nome}" type="text" readonly/>
@@ -48,12 +48,12 @@
             </select>
           </div>
 
-          <div class="col-4 mb-3">
+          <div class="col-2 mb-3">
             <label class="form-label" for="quantidade">Quantidade</label>
             <input class="form-control" id="quantidade" th:field="*{quantidade}" type="number"/>
           </div>
 
-          <div class="col-4 mb-3">
+          <div class="col-3 mb-3">
             <label class="form-label" for="dataDeValidade">Data de Validade</label>
             <input class="form-control" id="dataDeValidade" th:field="*{dataDeValidade}" type="date"/>
           </div>
