@@ -36,40 +36,55 @@ public class NotaEntradaItemController {
                         RedirectAttributes attr,
                         ModelMap model) {
 
-        Long produtoId = notaEntradaItem.getProduto().getId();
-        if (produtoId == null) {
-            result.rejectValue("produto","field.required");
+        if (notaEntradaItem.getProduto() == null || notaEntradaItem.getProduto().getId() == null) {
+            result.rejectValue("produto", "field.required");
         }
 
-        if (notaEntradaItemBO.itemJaAdicionado(notaEntradaItem)){
-            result.rejectValue("produto","duplicate");
+        if (notaEntradaItem.getNotaEntrada() == null || notaEntradaItem.getNotaEntrada().getId() == null) {
+            result.rejectValue("notaEntrada", "field.required", "A nota de entrada é obrigatória.");
         }
 
-        if (result.hasErrors()){
+        if (notaEntradaItemBO.itemJaAdicionado(notaEntradaItem)) {
+            result.rejectValue("produto", "duplicate");
+        }
+
+        if (result.hasErrors()) {
             model.addAttribute("produtos", produtoBO.lista());
-            return  "/nota-entrada-item/formulario";
+            return "/nota-entrada-item/produtos-itens";
         }
 
         NotaEntrada notaEntrada = notaEntradaBO.pesquisaPeloId(notaEntradaItem.getNotaEntrada().getId());
+
+        if (notaEntrada == null) {
+            attr.addFlashAttribute("erro", "Nota de entrada não encontrada.");
+            return "redirect:/nota-entrada";
+        }
+
         notaEntradaItem.setNotaEntrada(notaEntrada);
 
-        if(notaEntradaItem.getId() == null){
+        if (notaEntradaItem.getId() == null) {
             notaEntradaItemBO.insere(notaEntradaItem);
-            attr.addFlashAttribute("feedback","Produto adicionado com sucesso");
-        }else{
+            attr.addFlashAttribute("feedback", "Produto adicionado com sucesso");
+        } else {
             notaEntradaItemBO.atualiza(notaEntradaItem);
-            attr.addFlashAttribute("feedback","Produto atualizado com sucesso");
+            attr.addFlashAttribute("feedback", "Produto atualizado com sucesso");
         }
-        Long notaEntradaId = notaEntradaItem.getNotaEntrada().getId();
-        return "redirect:nota-entrada/edita/" + notaEntradaId;
 
+        return "redirect:/nota-entrada/edita/" + notaEntrada.getId();
     }
+
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
     public ModelAndView edita(@PathVariable("id") Long id, ModelMap model ){
+        NotaEntradaItem notaEntradaItem = notaEntradaItemBO.pesquisaPeloId(id);
+
+        if (notaEntradaItem.getNotaEntrada() == null) {
+            notaEntradaItem.setNotaEntrada(new NotaEntrada());
+        }
+
         model.addAttribute("notaEntradaItem",notaEntradaItemBO.pesquisaPeloId(id));
         model.addAttribute("produtos",produtoBO.lista());
-        return new ModelAndView("nota-entrada-item/formulario",model);
+        return new ModelAndView("nota-entrada-item/produtos-itens",model);
     }
 
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)

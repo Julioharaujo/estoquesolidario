@@ -34,8 +34,9 @@ public class NotaEntradaController {
     public ModelAndView novo(ModelMap model){
         Long usuarioId = null;
         model.addAttribute("notaEntrada",new NotaEntrada());
+        model.addAttribute("notaEntradaItem", new NotaEntradaItem());
         model.addAttribute("usuarios", usuarioBO.listaDoadores());
-        return new ModelAndView("/nota-entrada/formulario.html", model);
+        return new ModelAndView("/nota-entrada/novo.html", model);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -49,7 +50,7 @@ public class NotaEntradaController {
 
         if (result.hasErrors()) {
             model.addAttribute("usuarios", usuarioBO.listaDoadores());
-            return "/nota-entrada/formulario.html";
+            return "/nota-entrada/adicionar-produtos.html";
         }
         if (notaEntrada.getId() == null) {
             notaEntradaBO.insere(notaEntrada);
@@ -75,18 +76,26 @@ public class NotaEntradaController {
         nei.setNotaEntrada(ne);
         model.addAttribute("notaEntradaItem",nei);
         model.addAttribute("produtos", produtoBO.lista());
-        return new ModelAndView("/nota-entrada-item/formulario",model);
+        return new ModelAndView("/nota-entrada-item/produtos-itens",model);
     }
 
     @RequestMapping(value="/edita/{id}", method=RequestMethod.GET)
     public ModelAndView edita(@PathVariable("id") Long id, ModelMap model) {
+        NotaEntrada notaEntrada = notaEntradaBO.pesquisaPeloId(id);
 
-        model.addAttribute("notaEntradaItem", new NotaEntradaItem());
-        model.addAttribute("usuarios", usuarioBO.lista());//listaDoadores()
-        model.addAttribute("notaEntrada", notaEntradaBO.pesquisaPeloId(id));
-        System.out.println("NotaEntrada: " + id);
+        if (notaEntrada == null) {
+            return new ModelAndView("redirect:/nota-entrada");
+        }
 
-        return new ModelAndView("nota-entrada/formulario", model);
+        NotaEntradaItem notaEntradaItem = new NotaEntradaItem();
+        notaEntradaItem.setNotaEntrada(notaEntrada);
+
+        model.addAttribute("notaEntrada", notaEntrada);
+        model.addAttribute("notaEntradaItem", notaEntradaItem);
+        model.addAttribute("usuarios", usuarioBO.lista());
+        model.addAttribute("produtos", produtoBO.lista());
+
+        return new ModelAndView("nota-entrada/adicionar-produtos", model);
     }
 
     @RequestMapping(value="remove/{id}", method=RequestMethod.GET)

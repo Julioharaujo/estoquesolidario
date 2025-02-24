@@ -23,13 +23,15 @@
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
+                <td><b>ID DOAÇÃO</b></td>
                 <th>DOADOR</th>
                 <th>DATA HORA</th>
-                <th>QUANTIDADE DE ITENS</th>
+                <th>ITENS</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="nota : ${notas}">
+                <td th:text="*{nota.id}"></td>
                 <td th:text="${nota.usuario.nome}"></td>
                 <td th:text="${#temporals.format(nota.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
                 <td th:text="${#numbers.formatDecimal(nota.totalItens, 0, 'POINT', 0, 'COMMA')}"></td>

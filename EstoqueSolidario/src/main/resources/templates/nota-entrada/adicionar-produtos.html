@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Estoque</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        body {
+            padding-top: 4.5rem;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<div class="container">
+    <div class="bg-light p-5 rounded">
+        <div th:insert="~{nota-entrada-item/produtos-itens :: itemForm}"></div>
+        <br>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <td><b>PRODUTO</b></td>
+                <td><b>QTDE</b></td>
+                <td><b>DATA DE VALIDADE</b></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="item : ${notaEntrada.itens}">
+                <td th:text="${item.produto.nome}"></td>
+                <td th:text="${item.quantidade}"></td>
+                <td th:text="${#temporals.format(item.dataDeValidade, 'dd/MM/yyyy')}"></td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada-item/edita/{id}(id=${item.id})}">Editar</a>
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada-item/remove/{id}(id=${item.id})}">Remover</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <br>
+        <h1>Dados da Doação</h1>
+        <div class="mb-1" th:insert="~{nota-entrada/doacao :: dadosNota}"></div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!--
+<script>
+    function formataValor(campo) {
+        var valor = parseFloat($(campo).val());
+        if ( !isNaN(valor) ) {
+            $(campo).val(valor.toFixed(2));
+        }
+    }
+    $(document).ready(function() {
+        formataValor("#total");
+    });
+</script>
+-->
+
+</body>
+</html>
+
+
+
+
+
