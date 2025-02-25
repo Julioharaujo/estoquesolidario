@@ -49,6 +49,7 @@ public class NotaEntradaItemController {
         }
 
         if (result.hasErrors()) {
+            model.addAttribute("notaEntradaItem", notaEntradaItem);
             model.addAttribute("produtos", produtoBO.lista());
             return "/nota-entrada-item/produtos-itens";
         }
@@ -61,6 +62,7 @@ public class NotaEntradaItemController {
         }
 
         notaEntradaItem.setNotaEntrada(notaEntrada);
+        notaEntrada.getItens().add(notaEntradaItem);
 
         if (notaEntradaItem.getId() == null) {
             notaEntradaItemBO.insere(notaEntradaItem);
@@ -75,25 +77,37 @@ public class NotaEntradaItemController {
 
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
-    public ModelAndView edita(@PathVariable("id") Long id, ModelMap model ){
+    public ModelAndView edita(@PathVariable("id") Long id, ModelMap model) {
         NotaEntradaItem notaEntradaItem = notaEntradaItemBO.pesquisaPeloId(id);
 
-        if (notaEntradaItem.getNotaEntrada() == null) {
+        if (notaEntradaItem == null) {
+            notaEntradaItem = new NotaEntradaItem();
+            notaEntradaItem.setNotaEntrada(new NotaEntrada()); // Evita null
+        } else if (notaEntradaItem.getNotaEntrada() == null) {
             notaEntradaItem.setNotaEntrada(new NotaEntrada());
         }
 
-        model.addAttribute("notaEntradaItem",notaEntradaItemBO.pesquisaPeloId(id));
-        model.addAttribute("produtos",produtoBO.lista());
-        return new ModelAndView("nota-entrada-item/produtos-itens",model);
+        // Depuração: Exibir no console
+        System.out.println("NotaEntradaItem: " + notaEntradaItem);
+
+        model.addAttribute("notaEntradaItem", notaEntradaItem);
+        model.addAttribute("produtos", produtoBO.lista());
+
+        return new ModelAndView("nota-entrada-item/produtos-itens", model);
     }
 
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
     public String remove(@PathVariable("id") Long id, RedirectAttributes attr){
-        Long notaId = 0L;
         NotaEntradaItem notaEntradaItem = notaEntradaItemBO.pesquisaPeloId(id);
-        notaId = notaEntradaItem.getNotaEntrada().getId();
-        notaEntradaItemBO.remove(notaEntradaItem);
-        attr.addAttribute("feedback","Item removido com sucesso");
-        return "redirect:nota-entrada/edita/" + notaId;
+        Long notaId = (notaEntradaItem != null && notaEntradaItem.getNotaEntrada() != null) ?
+                notaEntradaItem.getNotaEntrada().getId() : 0L;
+
+        if (notaEntradaItem != null) {
+            notaEntradaItemBO.remove(notaEntradaItem);
+            attr.addAttribute("feedback","Item removido com sucesso");
+        }
+
+        return "redirect:/nota-entrada/edita/" + notaId;
     }
+
 }

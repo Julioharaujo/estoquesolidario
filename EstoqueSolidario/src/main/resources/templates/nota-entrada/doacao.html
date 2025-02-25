@@ -20,6 +20,10 @@
         <div th:fragment="dadosNota">
             <form th:action="@{/nota-entrada}" method="POST">
                 <input id="id_notaEntrada" type="hidden" th:field="*{notaEntrada.id}"/>
+                <input type="hidden" th:field="*{notaEntrada.usuario.nome}"/>
+                <input type="hidden" th:field="*{notaEntrada.usuario.id}"/>
+                <input type="hidden" th:field="*{notaEntrada.dataHora}"/>
+                <input type="hidden" th:field="*{notaEntrada.totalItens}"/>
                 <div th:if="${!#strings.isEmpty(feedback)}" class="alert alert-success" role="alert">
                     <span th:text="${feedback}"></span>
                 </div>

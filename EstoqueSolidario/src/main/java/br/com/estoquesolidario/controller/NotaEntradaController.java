@@ -1,10 +1,12 @@
 package br.com.estoquesolidario.controller;
 
 import br.com.estoquesolidario.bo.NotaEntradaBO;
+import br.com.estoquesolidario.bo.NotaEntradaItemBO;
 import br.com.estoquesolidario.bo.ProdutoBO;
 import br.com.estoquesolidario.bo.UsuarioBO;
 import br.com.estoquesolidario.model.NotaEntrada;
 import br.com.estoquesolidario.model.NotaEntradaItem;
+import br.com.estoquesolidario.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,6 +26,9 @@ public class NotaEntradaController {
     private NotaEntradaBO notaEntradaBO;
 
     @Autowired
+    private NotaEntradaItemBO notaEntradaItemBO;
+
+    @Autowired
     private UsuarioBO usuarioBO;
 
     @Autowired
@@ -32,10 +37,13 @@ public class NotaEntradaController {
     //http://localhost:8080/nota-entrada/novo
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model){
-        Long usuarioId = null;
-        model.addAttribute("notaEntrada",new NotaEntrada());
+        NotaEntrada notaEntrada = new NotaEntrada();
+        notaEntrada.setUsuario(new Usuario());
+
+        model.addAttribute("notaEntrada", notaEntrada);
         model.addAttribute("notaEntradaItem", new NotaEntradaItem());
         model.addAttribute("usuarios", usuarioBO.listaDoadores());
+
         return new ModelAndView("/nota-entrada/novo.html", model);
     }
 
@@ -44,6 +52,11 @@ public class NotaEntradaController {
                         BindingResult result,
                         RedirectAttributes attr,
                         ModelMap model) {
+
+        if (notaEntrada.getUsuario() == null) {
+            result.rejectValue("usuario", "field.required");
+        }
+
         if (notaEntrada.getUsuario().getId() == null) {
             result.rejectValue("usuario", "field.required");
         }
@@ -52,6 +65,7 @@ public class NotaEntradaController {
             model.addAttribute("usuarios", usuarioBO.listaDoadores());
             return "/nota-entrada/adicionar-produtos.html";
         }
+
         if (notaEntrada.getId() == null) {
             notaEntradaBO.insere(notaEntrada);
             attr.addFlashAttribute("feedback", "A nota de entrada foi cadastrada com sucesso!");
