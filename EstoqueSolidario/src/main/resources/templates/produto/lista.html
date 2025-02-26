@@ -15,30 +15,33 @@
 <body>
     <div th:replace="~{fragments/menu :: menu}"></div>
     <div class="container">
-        <h2>Produtos</h2>
-        <tr>
-        <a href="/produtos/novo" class="btn btn-primary mb-3">Novo</a>
-        <br><br>
-        <table class="table table-striped table-bordered">
-            <thead>
+        <div class="bg-light p-5 rounded">
+            <h2>Produtos</h2>
+            <hr>
             <tr>
-                <th>NOME</th>
-                <th>CATEGORIA</th>
-                <th>TAMANHO</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="produto : ${produtos}">
-                <td th:text="${produto.nome}"></td>
-                <td th:text="${produto.categoria}"></td>
-                <td th:text="${produto.tamanho}"></td>
-                <td>
-                    <a class="btn btn-primary" th:href="@{/produtos/edita/{id}(id=${produto.id})}">Editar</a>
-                    <a class="btn btn-secondary" th:href="@{/produtos/remove/{id}(id=${produto.id})}" >Remover</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+            <a href="/produtos/novo" class="btn btn-primary mb-3">Novo</a>
+            <br><br>
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>NOME</th>
+                    <th>CATEGORIA</th>
+                    <th>TAMANHO</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="produto : ${produtos}">
+                    <td th:text="${produto.nome}"></td>
+                    <td th:text="${produto.categoria}"></td>
+                    <td th:text="${produto.tamanho}"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/produtos/edita/{id}(id=${produto.id})}">Editar</a>
+                        <a class="btn btn-secondary" th:href="@{/produtos/remove/{id}(id=${produto.id})}" >Remover</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

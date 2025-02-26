@@ -20,6 +20,7 @@
             <h2>Dados do Usuário</h2>
             <hr>
             <form action="/usuarios" method="post" th:object="${usuario}">
+                <input type="hidden" th:field="*{id}" />
                 <div class="form-group mb-3">
                     <label for="ativo">Registro Ativo</label>
                     <div class="form-check">

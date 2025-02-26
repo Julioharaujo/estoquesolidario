@@ -36,15 +36,22 @@ public class UsuarioController {
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public String salva(@Valid @ModelAttribute Usuario usuario,
                         BindingResult result,
+                        RedirectAttributes attr,
                         Model model) {
 
         if (result.hasErrors()) {
             return "usuario/formulario";
         }
 
-        usuarioBO.insere(usuario);
+        if (usuario.getId() == null) {
+            usuarioBO.insere(usuario);
+            attr.addFlashAttribute("feedback", "O Usuario foi cadastrado com sucesso");
+        } else {
+            usuarioBO.atualiza(usuario);
+            attr.addFlashAttribute("feedback", "O Usuario foi cadastrado com sucesso");
+        }
+
         return "redirect:/usuarios";
-        //inserir metodo usuarioBO.atualisa();
     }
 
     //http://localhost:8080/usuarios
