@@ -1,10 +1,12 @@
 package br.com.estoquesolidario.controller;
 
 import br.com.estoquesolidario.bo.DoacaoEntradaBO;
+import br.com.estoquesolidario.bo.DoacaoEntradaItemBO;
 import br.com.estoquesolidario.bo.ProdutoBO;
 import br.com.estoquesolidario.bo.UsuarioBO;
 import br.com.estoquesolidario.model.DoacaoEntrada;
 import br.com.estoquesolidario.model.DoacaoEntradaItem;
+import br.com.estoquesolidario.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,8 +40,8 @@ public class DoacaoEntradaController {
         DoacaoEntrada doacaoEntrada = new DoacaoEntrada();
         doacaoEntrada.setUsuario(new Usuario());
 
-        model.addAttribute("doacaoEntrada", notaEntrada);
-        model.addAttribute("doacaoEntradaItem", new NotaEntradaItem());
+        model.addAttribute("doacaoEntrada", doacaoEntrada);
+        model.addAttribute("doacaoEntradaItem", new DoacaoEntradaItem());
         model.addAttribute("usuarios", usuarioBO.listaDoadores());
 
         return new ModelAndView("/doacao-entrada/novo.html", model);
@@ -66,7 +68,7 @@ public class DoacaoEntradaController {
 
         if (doacaoEntrada.getId() == null) {
             doacaoEntradaBO.insere(doacaoEntrada);
-            attr.addFlashAttribute("feedback", "A nota de entrada foi cadastrada com sucesso!");
+            attr.addFlashAttribute("feedback", "A doação de entrada foi cadastrada com sucesso!");
         } else {
             doacaoEntradaBO.atualiza(doacaoEntrada);
             attr.addFlashAttribute("feedback", "Os dados da doacao de entrada foram atualizados com sucesso!");
@@ -95,8 +97,8 @@ public class DoacaoEntradaController {
     public ModelAndView edita(@PathVariable("id") Long id, ModelMap model) {
         DoacaoEntrada doacaoEntrada = doacaoEntradaBO.pesquisaPeloId(id);
 
-        if (notaEntrada == null) {
-            return new ModelAndView("redirect:/nota-entrada");
+        if (doacaoEntrada == null) {
+            return new ModelAndView("redirect:/doacao-entrada");
         }
 
         DoacaoEntradaItem doacaoEntradaItem = new DoacaoEntradaItem();

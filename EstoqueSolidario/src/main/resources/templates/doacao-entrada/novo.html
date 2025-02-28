@@ -18,8 +18,8 @@
         <h1>Doação</h1>
         <hr>
         <div>
-            <form th:action="@{/nota-entrada}" method="POST">
-                <input id="id_notaEntrada" type="hidden" th:field="*{notaEntrada.id}"/>
+            <form th:action="@{/doacao-entrada}" method="POST">
+                <input id="id_doacaoEntrada" type="hidden" th:field="*{doacaoEntrada.id}"/>
                 <div th:if="${!#strings.isEmpty(feedback)}" class="alert alert-success" role="alert">
                     <span th:text="${feedback}"></span>
                 </div>
@@ -27,7 +27,7 @@
                     <div class="col-4 mb-3">
                         <label class="form-label" for="usuario">Doador</label>
                         <div class="mb-3">
-                            <select class="form-select" id="usuario" th:field="*{notaEntrada.usuario.id}">
+                            <select class="form-select" id="usuario" th:field="*{doacaoEntrada.usuario.id}">
                                 <option value="">Selecione um doador</option>
                                 <option th:each="usuario : ${usuarios}"
                                         th:value="${usuario.id}"
@@ -39,7 +39,7 @@
 
                     <div class="col-4 mb-3">
                         <label class="form-label" for="dataHora">Data da doação</label>
-                        <input class="form-control" id="dataHora" type="datetime-local" th:field="*{notaEntrada.dataHora}"/>
+                        <input class="form-control" id="dataHora" type="datetime-local" th:field="*{doacaoEntrada.dataHora}"/>
                     </div>
                 </div>
                 <div class="mb-3">

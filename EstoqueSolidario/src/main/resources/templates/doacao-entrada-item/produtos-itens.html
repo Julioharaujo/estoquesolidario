@@ -21,13 +21,13 @@
     <hr>
     <div>
       <div th:fragment="itemForm">
-        <form th:action="@{/nota-entrada-item}" th:object="${notaEntradaItem}" method="POST">
+        <form th:action="@{/doacao-entrada-item}" th:object="${doacaoEntradaItem}" method="POST">
           <input id="id" type="hidden" th:field="*{id}"/>
-          <input type="hidden" th:field="*{notaEntrada.id}"/>
-          <input type="hidden" th:field="*{notaEntrada.usuario.nome}"/>
-          <input type="hidden" th:field="*{notaEntrada.usuario.id}"/>
-          <input type="hidden" th:field="*{notaEntrada.dataHora}"/>
-          <input type="hidden" th:field="*{notaEntrada.totalItens}"/>
+          <input type="hidden" th:field="*{doacaoEntrada.id}"/>
+          <input type="hidden" th:field="*{doacaoEntrada.usuario.nome}"/>
+          <input type="hidden" th:field="*{doacaoEntrada.usuario.id}"/>
+          <input type="hidden" th:field="*{doacaoEntrada.dataHora}"/>
+          <input type="hidden" th:field="*{doacaoEntrada.totalItens}"/>
           <br/>
           <div class="row">
             <h1>Adicionar Produtos</h1>

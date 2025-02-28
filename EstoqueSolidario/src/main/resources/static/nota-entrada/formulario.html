@@ -56,10 +56,10 @@
                             <td th:text="${#numbers.formatDecimal(item.valorUnitario, 0, 'POINT', 2, 'COMMA')}"></td>
                             <td th:text="${#numbers.formatDecimal(item.valorTotal, 0, 'POINT', 2, 'COMMA')}"></td>
                             <td>
-                                <a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada-item/edita/{id}(id=${item.id})}">Editar</a>
+                                <a class="btn btn-sm btn-secondary" th:href="@{/doacao-entrada-item/edita/{id}(id=${item.id})}">Editar</a>
                             </td>
                             <td>
-                                <a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada-item/remove/{id}(id=${item.id})}">Remover</a>
+                                <a class="btn btn-sm btn-secondary" th:href="@{/doacao-entrada-item/remove/{id}(id=${item.id})}">Remover</a>
                             </td>
                         </tr>
                         </tbody>

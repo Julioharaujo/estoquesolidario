@@ -30,15 +30,15 @@
             </thead>
             <tbody>
             <tr th:each="doacao : ${doacoes}">
-                <td th:text="${nota.usuario.nome}"></td>
-                <td th:text="${#temporals.format(nota.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
-                <td th:text="${#numbers.formatInteger(nota.totalItens, }"></td>
+                <td th:text="${doacao.usuario.nome}"></td>
+                <td th:text="${#temporals.format(doacao.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${#numbers.formatInteger(doacao.totalItens, }"></td>
                 <td>
-                    <!--<a th:href="@{/nota-entrada/edita/{id}(id=${nota.id})}" class="btn btn-sm btn-secondary">Editar</a>-->
-                    <a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada/edita/{id}(id=${nota.id})}">Editar</a>
+                    <!--<a th:href="@{/doacao-entrada/edita/{id}(id=${doacao.id})}" class="btn btn-sm btn-secondary">Editar</a>-->
+                    <a class="btn btn-sm btn-secondary" th:href="@{/doacao-entrada/edita/{id}(id=${doacao.id})}">Editar</a>
                 </td>
                 <td>
-                    <a th:href="@{/nota-entrada/remove/{id}(id=${nota.id})}" class="btn btn-sm btn-secondary">Remover</a>
+                    <a th:href="@{/doacao-entrada/remove/{id}(id=${doacao.id})}" class="btn btn-sm btn-secondary">Remover</a>
                 </td>
             </tr>
             </tbody>

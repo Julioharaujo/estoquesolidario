@@ -15,7 +15,7 @@
 
 <div class="container">
     <div class="bg-light p-5 rounded">
-        <div th:insert="~{nota-entrada-item/produtos-itens :: itemForm}"></div>
+        <div th:insert="~{doacao-entrada-item/produtos-itens :: itemForm}"></div>
         <br>
         <table class="table table-hover">
             <thead>
@@ -29,15 +29,15 @@
             </thead>
             <tbody>
 
-            <tr th:each="item : ${notaEntrada.itens}">
+            <tr th:each="item : ${doacaoEntrada.itens}">
                 <td th:text="${item.produto.nome}"></td>
                 <td th:text="${item.quantidade}"></td>
                 <td th:text="${#temporals.format(item.dataDeValidade, 'dd/MM/yyyy')}"></td>
                 <td>
-                    <a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada-item/edita/{id}(id=${item.id})}">Editar</a>
+                    <a class="btn btn-sm btn-secondary" th:href="@{/doacao-entrada-item/edita/{id}(id=${item.id})}">Editar</a>
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada-item/remove/{id}(id=${item.id})}">Remover</a>
+                    <a class="btn btn-sm btn-secondary" th:href="@{/doacao-entrada-item/remove/{id}(id=${item.id})}">Remover</a>
                 </td>
             </tr>
 
@@ -45,7 +45,7 @@
         </table>
         <br>
         <h1>Dados da Doação</h1>
-        <div class="mb-1" th:insert="~{nota-entrada/doacao :: dadosNota}"></div>
+        <div class="mb-1" th:insert="~{doacao-entrada/doacao :: dadosDoacao}"></div>
 
     </div>
 </div>
