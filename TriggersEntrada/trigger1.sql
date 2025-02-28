@@ -1,4 +1,4 @@
-use estoque;
+use estoque_solidario;
 
 DELIMITER $
 
