@@ -1,10 +1,10 @@
 package br.com.estoquesolidario.controller;
 
-import br.com.estoquesolidario.bo.NotaSaidaBO;
+import br.com.estoquesolidario.bo.DoacaoSaidaBO;
 import br.com.estoquesolidario.bo.ProdutoBO;
 import br.com.estoquesolidario.bo.UsuarioBO;
-import br.com.estoquesolidario.model.NotaSaida;
-import br.com.estoquesolidario.model.NotaSaidaItem;
+import br.com.estoquesolidario.model.DoacaoSaida;
+import br.com.estoquesolidario.model.DoacaoSaidaItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,11 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/nota-saida")
-public class NotaSaidaController {
+@RequestMapping("/doacao-saida")
+public class DoacaoSaidaController {
 
     @Autowired
-    private NotaSaidaBO notaSaidaBO;
+    private DoacaoSaidaBO doacaoSaidaBO;
 
     @Autowired
     private UsuarioBO usuarioBO;
@@ -31,63 +31,63 @@ public class NotaSaidaController {
 
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model){
-        model.addAttribute("notaSaida", new NotaSaida());
+        model.addAttribute("doacaoSaida", new DoacaoSaida());
         model.addAttribute("usuarios", usuarioBO.listaFavorecidos());
-        return new ModelAndView("/nota-saida/formulario.html", model);
+        return new ModelAndView("/doacao-saida/formulario.html", model);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String salva(@ModelAttribute NotaSaida notaSaida,
+    public String salva(@ModelAttribute DoacaoSaida doacaoSaida,
                         BindingResult result,
                         RedirectAttributes attr,
                         ModelMap model) {
-        if (notaSaida.getUsuario().getId() == null) {
+        if (doacaoSaida.getUsuario().getId() == null) {
             result.rejectValue("usuario", "field.required");
         }
 
         if (result.hasErrors()) {
             model.addAttribute("usuarios", usuarioBO.listaFavorecidos());
-            return "/nota-saida/formulario.html";
+            return "/doacao-saida/formulario.html";
         }
-        if (notaSaida.getId() == null) {
-            notaSaidaBO.insere(notaSaida);
-            attr.addFlashAttribute("feedback", "A nota de saída foi cadastrada com sucesso!");
+        if (doacaoSaida.getId() == null) {
+            doacaoSaidaBO.insere(doacaoSaida);
+            attr.addFlashAttribute("feedback", "A doacao de saída foi cadastrada com sucesso!");
         } else {
-            notaSaidaBO.atualiza(notaSaida);
-            attr.addFlashAttribute("feedback", "Os dados da nota de saída foram atualizados com sucesso!");
+            doacaoSaidaBO.atualiza(doacaoSaida);
+            attr.addFlashAttribute("feedback", "Os dados da doacao de saída foram atualizados com sucesso!");
         }
-        return "redirect:/nota-saida";
+        return "redirect:/doacao-saida";
     }
 
     @RequestMapping(value="", method=RequestMethod.GET)
     public ModelAndView lista(ModelMap model) {
-        model.addAttribute("notas", notaSaidaBO.lista());
-        return new ModelAndView("/nota-saida/lista.html", model);
+        model.addAttribute("doacoes", doacaoSaidaBO.lista());
+        return new ModelAndView("/doacao-saida/lista.html", model);
     }
 
     @RequestMapping(value="/{id}/item", method=RequestMethod.GET)
     public ModelAndView produto(@PathVariable("id") Long id, ModelMap model) {
-        NotaSaidaItem nsi = new NotaSaidaItem();
-        NotaSaida ns = notaSaidaBO.pesquisaPeloId(id);
-        nsi.setNotaSaida(ns);
-        model.addAttribute("notaSaidaItem", nsi);
+        DoacaoSaidaItem nsi = new DoacaoSaidaItem();
+        DoacaoSaida ns = doacaoSaidaBO.pesquisaPeloId(id);
+        nsi.setDoacaoSaida(ns);
+        model.addAttribute("doacaoSaidaItem", nsi);
         model.addAttribute("produtos", produtoBO.lista());
-        return new ModelAndView("/nota-saida-item/formulario", model);
+        return new ModelAndView("/doacao-saida-item/formulario", model);
     }
 
     @RequestMapping(value="/edita/{id}", method=RequestMethod.GET)
     public ModelAndView edita(@PathVariable("id") Long id, ModelMap model) {
-        model.addAttribute("notaSaidaItem", new NotaSaidaItem());
+        model.addAttribute("doacaoSaidaItem", new DoacaoSaidaItem());
         model.addAttribute("usuarios", usuarioBO.lista());
-        model.addAttribute("notaSaida", notaSaidaBO.pesquisaPeloId(id));
-        return new ModelAndView("nota-saida/formulario", model);
+        model.addAttribute("doacaoSaida", doacaoSaidaBO.pesquisaPeloId(id));
+        return new ModelAndView("doacao-saida/formulario", model);
     }
 
     @RequestMapping(value="remove/{id}", method=RequestMethod.GET)
     public String remove(@PathVariable("id") Long id, RedirectAttributes attr) {
-        NotaSaida ns = notaSaidaBO.pesquisaPeloId(id);
-        notaSaidaBO.remove(ns);
-        attr.addAttribute("feedback", "Nota de saída removida com sucesso");
-        return "redirect:/nota-saida";
+        DoacaoSaida ns = doacaoSaidaBO.pesquisaPeloId(id);
+        doacaoSaidaBO.remove(ns);
+        attr.addAttribute("feedback", "Doacao de saída removida com sucesso");
+        return "redirect:/doacao-saida";
     }
 }

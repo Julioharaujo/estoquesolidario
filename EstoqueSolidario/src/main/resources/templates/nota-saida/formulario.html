@@ -18,29 +18,29 @@
         <h1>Saída</h1>
         <hr>
         <div>
-            <form th:action="@{/nota-saida}" method="POST">
-                <input id="id" type="hidden" th:field="*{notaSaida.id}"/>
+            <form th:action="@{/doacao-saida}" method="POST">
+                <input id="id" type="hidden" th:field="*{doacaoSaida.id}"/>
                 <div th:if="${!#strings.isEmpty(feedback)}" class="alert alert-success" role="alert">
                     <span th:text="${feedback}"></span>
                 </div>
                 <div class="row">
                     <div class="col-4 mb-3">
                         <label class="form-label" for="usuario">Favorecido</label>
-                        <select class="form-select" id="usuario" th:field="*{notaSaida.usuario.id}">
+                        <select class="form-select" id="usuario" th:field="*{doacaoSaida.usuario.id}">
                             <option value="">Selecione um favorecido</option>
                             <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nome}"></option>
                         </select>
                     </div>
                     <div class="col-4 mb-3">
                         <label class="form-label" for="dataHora">Data da saída</label>
-                        <input class="form-control" id="dataHora" type="datetime-local" th:field="*{notaSaida.dataHora}"/>
+                        <input class="form-control" id="dataHora" type="datetime-local" th:field="*{doacaoSaida.dataHora}"/>
                     </div>
                     <div class="col-4 mb-3">
                         <label class="form-label" for="totalItens">Total Itens</label>
-                        <input class="form-control" id="totalItens" th:field="*{notaSaida.totalItens}" step="any" type="number" readonly/>
+                        <input class="form-control" id="totalItens" th:field="*{doacaoSaida.totalItens}" step="any" type="number" readonly/>
                     </div>
-                    <div th:if="${notaSaida.id != null}" class="mb-3">
-                        <a class="btn btn-sm btn-success" th:href="@{/nota-saida/{id}/item(id=${notaSaida.id})}">Adicionar produto</a>
+                    <div th:if="${doacaoSaida.id != null}" class="mb-3">
+                        <a class="btn btn-sm btn-success" th:href="@{/doacao-saida/{id}/item(id=${doacaoSaida.id})}">Adicionar produto</a>
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -51,7 +51,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="item : ${notaSaida.itens}">
+                            <tr th:each="item : ${doacaoSaida.itens}">
                                 <td th:text="${item.produto.nome}"></td>
                                 <td th:text="${item.quantidade}"></td>
                                 <td>

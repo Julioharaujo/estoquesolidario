@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "nota_saida")
-public class NotaSaida {
+@Table(name = "doacao_saida")
+public class DoacaoSaida {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +22,8 @@ public class NotaSaida {
     @JoinColumn(name="usuario_id", nullable = false)
     private Usuario usuario;
 
-    @OneToMany(mappedBy ="notaSaida", cascade = CascadeType.ALL)
-    private List<NotaSaidaItem> itens;
+    @OneToMany(mappedBy ="doacaoSaida", cascade = CascadeType.ALL)
+    private List<DoacaoSaidaItem> itens;
 
     @Transient
     private Integer totalItens;
@@ -52,19 +52,19 @@ public class NotaSaida {
         this.usuario = usuario;
     }
 
-    public List<NotaSaidaItem> getItens() {
+    public List<DoacaoSaidaItem> getItens() {
         return itens;
     }
 
-    public void setItens(List<NotaSaidaItem> itens) {
+    public void setItens(List<DoacaoSaidaItem> itens) {
         this.itens = itens;
     }
 
     public Integer getTotalItens() {
         this.totalItens = 0;
         if(this.itens != null){
-            for (NotaSaidaItem notaSaidaItem : itens){
-                totalItens += notaSaidaItem.getQuantidade();
+            for (DoacaoSaidaItem doacaoSaidaItem : itens){
+                totalItens += doacaoSaidaItem.getQuantidade();
             }
         }
         return totalItens;

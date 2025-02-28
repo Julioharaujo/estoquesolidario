@@ -1,7 +1,6 @@
 package br.com.estoquesolidario.controller;
 
 import br.com.estoquesolidario.bo.UsuarioBO;
-import br.com.estoquesolidario.model.NotaEntrada;
 import br.com.estoquesolidario.model.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

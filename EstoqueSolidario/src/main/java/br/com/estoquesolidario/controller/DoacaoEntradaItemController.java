@@ -1,10 +1,10 @@
 package br.com.estoquesolidario.controller;
 
-import br.com.estoquesolidario.bo.NotaSaidaBO;
-import br.com.estoquesolidario.bo.NotaSaidaItemBO;
+import br.com.estoquesolidario.bo.DoacaoEntradaBO;
+import br.com.estoquesolidario.bo.DoacaoEntradaItemBO;
 import br.com.estoquesolidario.bo.ProdutoBO;
-import br.com.estoquesolidario.model.NotaSaida;
-import br.com.estoquesolidario.model.NotaSaidaItem;
+import br.com.estoquesolidario.model.DoacaoEntrada;
+import br.com.estoquesolidario.model.DoacaoEntradaItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,68 +17,67 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/nota-saida-item")
-public class NotaSaidaItemController {
+@RequestMapping("/doacao-entrada-item")
+public class DoacaoEntradaItemController {
 
     @Autowired
     private ProdutoBO produtoBO;
 
     @Autowired
-    private NotaSaidaBO notaSaidaBO;
+    private DoacaoEntradaBO doacaoEntradaBO;
 
     @Autowired
-    private NotaSaidaItemBO notaSaidaItemBO;
+    private DoacaoEntradaItemBO doacaoEntradaItemBO;
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String salva(@ModelAttribute NotaSaidaItem notaSaidaItem,
+    public String salva(@ModelAttribute DoacaoEntradaItem doacaoEntradaItem,
                         BindingResult result,
                         RedirectAttributes attr,
                         ModelMap model) {
 
-        Long produtoId = notaSaidaItem.getProduto().getId();
+        Long produtoId = doacaoEntradaItem.getProduto().getId();
         if (produtoId == null) {
             result.rejectValue("produto","field.required");
         }
 
-        if (notaSaidaItemBO.itemJaAdicionado(notaSaidaItem)){
+        if (doacaoEntradaItemBO.itemJaAdicionado(doacaoEntradaItem)){
             result.rejectValue("produto","duplicate");
         }
 
         if (result.hasErrors()){
             model.addAttribute("produtos", produtoBO.lista());
-            return  "/nota-saida-item/formulario";
+            return  "/doacao-entrada-item/formulario";
         }
 
-        NotaSaida notaSaida = notaSaidaBO.pesquisaPeloId(notaSaidaItem.getNotaSaida().getId());
-        notaSaidaItem.setNotaSaida(notaSaida);
+        DoacaoEntrada doacaoEntrada = doacaoEntradaBO.pesquisaPeloId(doacaoEntradaItem.getDoacaoEntrada().getId());
+        doacaoEntradaItem.setDoacaoEntrada(doacaoEntrada);
 
-        if(notaSaidaItem.getId() == null){
-            notaSaidaItemBO.insere(notaSaidaItem);
+        if(doacaoEntradaItem.getId() == null){
+            doacaoEntradaItemBO.insere(doacaoEntradaItem);
             attr.addFlashAttribute("feedback","Produto adicionado com sucesso");
         }else{
-            notaSaidaItemBO.atualiza(notaSaidaItem);
+            doacaoEntradaItemBO.atualiza(doacaoEntradaItem);
             attr.addFlashAttribute("feedback","Produto atualizado com sucesso");
         }
-        Long notaSaidaId = notaSaidaItem.getNotaSaida().getId();
-        return "redirect:nota-saida/edita/" + notaSaidaId;
+        Long doacaoEntradaId = doacaoEntradaItem.getDoacaoEntrada().getId();
+        return "redirect:doacao-entrada/edita/" + doacaoEntradaId;
 
     }
 
     @RequestMapping(value = "/edita/{id}", method = RequestMethod.GET)
     public ModelAndView edita(@PathVariable("id") Long id, ModelMap model ){
-        model.addAttribute("notaSaidaItem",notaSaidaItemBO.pesquisaPeloId(id));
+        model.addAttribute("doacaoEntradaItem",doacaoEntradaItemBO.pesquisaPeloId(id));
         model.addAttribute("produtos",produtoBO.lista());
-        return new ModelAndView("nota-saida-item/formulario",model);
+        return new ModelAndView("doacao-entrada-item/formulario",model);
     }
 
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
     public String remove(@PathVariable("id") Long id, RedirectAttributes attr){
-        Long notaId = 0L;
-        NotaSaidaItem notaSaidaItem = notaSaidaItemBO.pesquisaPeloId(id);
-        notaId = notaSaidaItem.getNotaSaida().getId();
-        notaSaidaItemBO.remove(notaSaidaItem);
+        Long doacaoId = 0L;
+        DoacaoEntradaItem doacaoEntradaItem = doacaoEntradaItemBO.pesquisaPeloId(id);
+        doacaoId = doacaoEntradaItem.getDoacaoEntrada().getId();
+        doacaoEntradaItemBO.remove(doacaoEntradaItem);
         attr.addAttribute("feedback","Item removido com sucesso");
-        return "redirect:nota-saida/edita/" + notaId;
+        return "redirect:doacao-entrada/edita/" + doacaoId;
     }
-
 }
