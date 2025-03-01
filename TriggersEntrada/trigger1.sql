@@ -1,5 +1,6 @@
 use estoque_solidario;
 
+# insere um registro em produto_estoque com quantidade 0 ao adicionar um produto.
 DELIMITER $
 
 CREATE trigger TGR_I_PRODUTOS AFTER INSERT

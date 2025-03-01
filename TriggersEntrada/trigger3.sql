@@ -1,3 +1,5 @@
+# reduz o estoque ao excluir itens de doação.
+
 DELIMITER $
 DROP trigger IF exists TRG_D_DOACAO_ENTRADA_ITENS;
 CREATE trigger TRG_D_DOACAO_ENTRADA_ITENS AFTER DELETE

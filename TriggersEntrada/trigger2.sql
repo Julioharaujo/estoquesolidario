@@ -1,3 +1,5 @@
+# atualiza o estoque ao inserir itens de doação.
+
 DELIMITER $
 
 CREATE trigger TRG_I_DOACAO_ENTRADA_ITENS AFTER INSERT
