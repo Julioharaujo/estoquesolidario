@@ -44,9 +44,17 @@ public class DoacaoEntradaItemController {
             result.rejectValue("produto","duplicate");
         }
 
-        if (result.hasErrors()){
-            model.addAttribute("produtos", produtoBO.lista());
-            return  "/doacao-entrada-item/formulario";
+        if (result.hasErrors()) {
+            StringBuilder mensagemErro = new StringBuilder("Erro ao adicionar o produto: ");
+
+            result.getAllErrors().forEach(error -> {
+                mensagemErro.append(error.getDefaultMessage()).append(" ");
+            });
+
+            attr.addFlashAttribute("erro", mensagemErro.toString().trim());
+
+            Long doacaoId = doacaoEntradaItem.getDoacaoEntrada().getId();
+            return "redirect:doacao-entrada/edita/" + doacaoId;
         }
 
         DoacaoEntrada doacaoEntrada = doacaoEntradaBO.pesquisaPeloId(doacaoEntradaItem.getDoacaoEntrada().getId());
@@ -68,7 +76,7 @@ public class DoacaoEntradaItemController {
     public ModelAndView edita(@PathVariable("id") Long id, ModelMap model ){
         model.addAttribute("doacaoEntradaItem",doacaoEntradaItemBO.pesquisaPeloId(id));
         model.addAttribute("produtos",produtoBO.lista());
-        return new ModelAndView("doacao-entrada-item/formulario",model);
+        return new ModelAndView("doacao-entrada-item/produtos-itens",model);
     }
 
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)

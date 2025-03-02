@@ -21,13 +21,13 @@
     <hr>
     <div>
       <div th:fragment="itemForm">
-        <form th:action="@{/doacao-entrada-item}" th:object="${doacaoEntradaItem}" method="POST">
+        <form th:action="@{/doacao-saida-item}" th:object="${doacaoSaidaItem}" method="POST">
           <input id="id" type="hidden" th:field="*{id}"/>
-          <input type="hidden" th:field="*{doacaoEntrada.id}"/>
-          <input type="hidden" th:field="*{doacaoEntrada.usuario.nome}"/>
-          <input type="hidden" th:field="*{doacaoEntrada.usuario.id}"/>
-          <input type="hidden" th:field="*{doacaoEntrada.dataHora}"/>
-          <input type="hidden" th:field="*{doacaoEntrada.totalItens}"/>
+          <input type="hidden" th:field="*{doacaoSaida.id}"/>
+          <input type="hidden" th:field="*{doacaoSaida.usuario.nome}"/>
+          <input type="hidden" th:field="*{doacaoSaida.usuario.id}"/>
+          <input type="hidden" th:field="*{doacaoSaida.dataHora}"/>
+          <input type="hidden" th:field="*{doacaoSaida.totalItens}"/>
           <br/>
           <div class="row">
             <div th:if="${!#strings.isEmpty(feedback)}" class="alert alert-success" role="alert">

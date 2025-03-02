@@ -15,25 +15,25 @@
 
 <div class="container">
     <div class="bg-light p-5 rounded">
-        <h1>Entrada de Doação</h1>
+        <h1>Saída de Doação</h1>
         <hr>
         <div th:fragment="dadosDoacao">
-            <form th:action="@{/doacao-entrada}" method="POST">
-                <input id="id_doacaoEntrada" type="hidden" th:field="*{doacaoEntrada.id}"/>
-                <input type="hidden" th:field="*{doacaoEntrada.usuario.nome}"/>
-                <input type="hidden" th:field="*{doacaoEntrada.usuario.id}"/>
-                <input type="hidden" th:field="*{doacaoEntrada.dataHora}"/>
-                <input type="hidden" th:field="*{doacaoEntrada.totalItens}"/>
+            <form th:action="@{/doacao-saida}" method="POST">
+                <input id="id_doacaoSaida" type="hidden" th:field="*{doacaoSaida.id}"/>
+                <input type="hidden" th:field="*{doacaoSaida.usuario.nome}"/>
+                <input type="hidden" th:field="*{doacaoSaida.usuario.id}"/>
+                <input type="hidden" th:field="*{doacaoSaida.dataHora}"/>
+                <input type="hidden" th:field="*{doacaoSaida.totalItens}"/>
                 <div class="row">
                     <div class="col-2 mb-3">
                         <label class="form-label" for="idDoacao">Id Doação</label>
-                        <input class="form-control" id="idDoacao" th:field="*{doacaoEntrada.id}" readonly/>
+                        <input class="form-control" id="idDoacao" th:field="*{doacaoSaida.id}" readonly/>
                     </div>
                     <div class="col-4 mb-3">
                         <label class="form-label" for="usuario">Doador</label>
                         <div class="mb-3">
-                            <select class="form-select" id="usuario" th:field="*{doacaoEntrada.usuario.id}"
-                                    th:attr="disabled=${doacaoEntrada.id != null}">
+                            <select class="form-select" id="usuario" th:field="*{doacaoSaida.usuario.id}"
+                                    th:attr="disabled=${doacaoSaida.id != null}">
                                 <option value="">Selecione um doador</option>
                                 <option th:each="usuario : ${usuarios}"
                                         th:value="${usuario.id}"
@@ -46,12 +46,12 @@
                     <div class="col-4 mb-3">
                         <label class="form-label" for="dataHora">Data da doação</label>
                         <input class="form-control" id="dataHora" type="datetime-local"
-                               th:field="*{doacaoEntrada.dataHora}"
-                               th:attr="disabled=${doacaoEntrada.id != null}"/>
+                               th:field="*{doacaoSaida.dataHora}"
+                               th:attr="disabled=${doacaoSaida.id != null}"/>
                     </div>
                     <div class="col-2 mb-3">
                         <label class="form-label" for="totalItens">Total Itens</label>
-                        <input class="form-control" id="totalItens" th:field="*{doacaoEntrada.totalItens}" step="any" type="number" readonly/>
+                        <input class="form-control" id="totalItens" th:field="*{doacaoSaida.totalItens}" step="any" type="number" readonly/>
                     </div>
                     <br />
                 </div>

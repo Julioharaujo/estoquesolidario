@@ -1,10 +1,12 @@
 package br.com.estoquesolidario.controller;
 
 import br.com.estoquesolidario.bo.DoacaoSaidaBO;
+import br.com.estoquesolidario.bo.DoacaoSaidaItemBO;
 import br.com.estoquesolidario.bo.ProdutoBO;
 import br.com.estoquesolidario.bo.UsuarioBO;
 import br.com.estoquesolidario.model.DoacaoSaida;
 import br.com.estoquesolidario.model.DoacaoSaidaItem;
+import br.com.estoquesolidario.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,6 +26,9 @@ public class DoacaoSaidaController {
     private DoacaoSaidaBO doacaoSaidaBO;
 
     @Autowired
+    private DoacaoSaidaItemBO doacaoSaidaItemBO;
+
+    @Autowired
     private UsuarioBO usuarioBO;
 
     @Autowired
@@ -31,9 +36,14 @@ public class DoacaoSaidaController {
 
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public ModelAndView novo(ModelMap model){
-        model.addAttribute("doacaoSaida", new DoacaoSaida());
-        model.addAttribute("usuarios", usuarioBO.listaFavorecidos());
-        return new ModelAndView("/doacao-saida/formulario.html", model);
+        DoacaoSaida doacaoSaida = new DoacaoSaida();
+        doacaoSaida.setUsuario(new Usuario());
+
+        model.addAttribute("doacaoSaida", doacaoSaida);
+        model.addAttribute("doacaoSaidaItem", new DoacaoSaidaItem());
+        model.addAttribute("usuarios", usuarioBO.listaDonatarios());
+
+        return new ModelAndView("/doacao-saida/novo.html", model);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -41,13 +51,18 @@ public class DoacaoSaidaController {
                         BindingResult result,
                         RedirectAttributes attr,
                         ModelMap model) {
+
+        if (doacaoSaida.getUsuario() == null) {
+            result.rejectValue("usuario", "field.required");
+        }
+
         if (doacaoSaida.getUsuario().getId() == null) {
             result.rejectValue("usuario", "field.required");
         }
 
         if (result.hasErrors()) {
-            model.addAttribute("usuarios", usuarioBO.listaFavorecidos());
-            return "/doacao-saida/formulario.html";
+            model.addAttribute("usuarios", usuarioBO.listaDonatarios());
+            return "/doacao-saida/adicionar-produtos.html";
         }
         if (doacaoSaida.getId() == null) {
             doacaoSaidaBO.insere(doacaoSaida);
@@ -72,15 +87,27 @@ public class DoacaoSaidaController {
         nsi.setDoacaoSaida(ns);
         model.addAttribute("doacaoSaidaItem", nsi);
         model.addAttribute("produtos", produtoBO.lista());
-        return new ModelAndView("/doacao-saida-item/formulario", model);
+        return new ModelAndView("/doacao-saida-item/produtos-itens", model);
     }
 
     @RequestMapping(value="/edita/{id}", method=RequestMethod.GET)
     public ModelAndView edita(@PathVariable("id") Long id, ModelMap model) {
-        model.addAttribute("doacaoSaidaItem", new DoacaoSaidaItem());
+        DoacaoSaida doacaoSaida = doacaoSaidaBO.pesquisaPeloId(id);
+
+        if (doacaoSaida == null) {
+            return new ModelAndView("redirect:/doacao-saida");
+        }
+
+        DoacaoSaidaItem doacaoSaidaItem = new DoacaoSaidaItem();
+        doacaoSaidaItem.setDoacaoSaida(doacaoSaida);
+
+        model.addAttribute("doacaoSaida", doacaoSaida);
+        model.addAttribute("doacaoSaidaItem", doacaoSaidaItem);
         model.addAttribute("usuarios", usuarioBO.lista());
-        model.addAttribute("doacaoSaida", doacaoSaidaBO.pesquisaPeloId(id));
-        return new ModelAndView("doacao-saida/formulario", model);
+        model.addAttribute("produtos", produtoBO.lista());
+        //model.addAttribute("doacaoSaida", doacaoSaidaBO.pesquisaPeloId(id));
+
+        return new ModelAndView("doacao-saida/adicionar-produtos", model);
     }
 
     @RequestMapping(value="remove/{id}", method=RequestMethod.GET)

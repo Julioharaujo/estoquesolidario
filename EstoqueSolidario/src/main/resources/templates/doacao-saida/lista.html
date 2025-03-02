@@ -13,36 +13,38 @@
     </style>
 </head>
 <body>
-<div th:replace="~{fragments/menu :: menu}"></div>
-<div class="container">
-    <div class="bg-light p-5 rounded">
-        <h2>Saídas</h2>
-        <hr>
-        <a href="/doacao-saida/novo" class="btn btn-primary mb-3">Novo</a>
-        <br><br>
-        <table class="table table-striped table-bordered">
-            <thead>
-            <tr>
-                <th>FAVORECIDO</th>
-                <th>DATA HORA</th>
-                <th>QUANTIDADE DE ITENS</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="doacao : ${doacoes}">
-                <td th:text="${doacao.usuario.nome}"></td>
-                <td th:text="${#temporals.format(doacao.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
-                <td th:text="${#numbers.formatDecimal(doacao.totalItens, 0, 'POINT', 0, 'COMMA')}"></td>
-                <td>
-                    <a th:href="@{/doacao-saida/edita/{id}(id=${doacao.id})}" class="btn btn-sm btn-secondary">Adicionar Produtos</a>
-                </td>
-                <td>
-                    <a th:href="@{/doacao-saida/remove/{id}(id=${doacao.id})}" class="btn btn-sm btn-secondary">Remover</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <div th:replace="~{fragments/menu :: menu}"></div>
+    <div class="container">
+        <div class="bg-light p-5 rounded">
+            <h2>Saída de Doação</h2>
+            <hr>
+            <a href="/doacao-saida/novo" class="btn btn-primary mb-3">Novo</a>
+            <br><br>
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <td><b>ID DOAÇÃO</b></td>
+                    <th>DONATÁRIO</th>
+                    <th>DATA HORA</th>
+                    <th>ITENS</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="doacao : ${doacoes}">
+                    <td th:text="*{doacao.id}"></td>
+                    <td th:text="${doacao.usuario.nome}"></td>
+                    <td th:text="${#temporals.format(doacao.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${#numbers.formatDecimal(doacao.totalItens, 0, 'POINT', 0, 'COMMA')}"></td>
+                    <td>
+                        <a th:href="@{/doacao-saida/edita/{id}(id=${doacao.id})}" class="btn btn-sm btn-secondary">Adicionar Produtos</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/doacao-saida/remove/{id}(id=${doacao.id})}" class="btn btn-sm btn-secondary">Remover</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 </div>
 </body>
 </html>

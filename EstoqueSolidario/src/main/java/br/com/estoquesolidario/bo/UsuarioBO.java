@@ -30,8 +30,8 @@ public class UsuarioBO implements CRUD<Usuario, Long> {
         return dao.listaPorPerfil(Perfil.DOADOR);
     }
 
-    public List<Usuario> listaFavorecidos() {
-        return dao.listaPorPerfil(Perfil.FAVORECIDO);
+    public List<Usuario> listaDonatarios() {
+        return dao.listaPorPerfil(Perfil.DONATARIO);
     }
 
     @Override

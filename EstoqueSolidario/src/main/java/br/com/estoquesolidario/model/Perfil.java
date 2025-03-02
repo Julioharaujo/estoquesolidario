@@ -3,7 +3,7 @@ package br.com.estoquesolidario.model;
 public enum Perfil {
     ADMINISTRADOR("Administrador"),
     DOADOR("Doador"),
-    FAVORECIDO("Favorecido");
+    DONATARIO("Donatário");
 
     private String descricao;
 
