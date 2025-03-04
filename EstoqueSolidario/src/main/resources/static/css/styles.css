@@ -1,0 +1,66 @@
+        body {
+            padding-top: 4.5rem;
+            background-color: #C6D8DC;
+            font-family: 'Roboto', sans-serif;
+        }
+        .hero-section {
+            background-color: #026772;
+            color: white;
+            padding: 50px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .hero-section h1 {
+            color: #F38342;
+        }
+        .btn-primary {
+            background-color: #F38342;
+            border-color: #F38342;
+        }
+        .btn-primary:hover {
+            background-color: #e57232;
+            border-color: #e57232;
+        }
+        .table {
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table thead {
+            background-color: #003541;
+            color: white;
+        }
+        .table th, .table td {
+            padding: 12px;
+            text-align: center;
+        }
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        .btn-inativar {
+            background-color: #026873;
+            border-color: #026873;
+            color: white;
+        }
+        .btn-inativar:hover {
+            background-color: #01535c;
+            border-color: #01535c;
+            color: white;
+        }
+        .btn-remover {
+            background-color: #013440;
+            border-color: #013440;
+            color: #ffffff;
+        }
+        .btn-remover:hover {
+            background-color: #014a5c;
+            border-color: #014a5c;
+            color: #ffffff;
+        }
+        h2 {
+            color: #026772;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .img-rounded {
+            border-radius: 20px; /* Ajuste o valor conforme necessário */
+        }

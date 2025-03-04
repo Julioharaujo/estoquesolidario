@@ -5,12 +5,8 @@
     <title>Estoque Solidário</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbar-fixed/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <style>
-        body {
-            padding-top: 4.5rem;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div th:replace="~{fragments/menu :: menu}"></div>
@@ -28,6 +24,7 @@
                     <th>DOADOR</th>
                     <th>DATA HORA</th>
                     <th>ITENS</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -38,10 +35,8 @@
                     <td th:text="${#numbers.formatDecimal(doacao.totalItens, 0, 'POINT', 0, 'COMMA')}"></td>
                     <!--<td th:text="${#numbers.formatInteger(doacao.totalItens, }"></td> -->
                     <td>
-                        <a th:href="@{/doacao-entrada/edita/{id}(id=${doacao.id})}" class="btn btn-sm btn-secondary">Adicionar Produtos</a>
-                    </td>
-                    <td>
-                        <a th:href="@{/doacao-entrada/remove/{id}(id=${doacao.id})}" class="btn btn-sm btn-secondary">Remover</a>
+                        <a th:href="@{/doacao-entrada/edita/{id}(id=${doacao.id})}" class="btn btn-inativar me-3 me-3">Adicionar Produtos</a>
+                        <a th:href="@{/doacao-entrada/remove/{id}(id=${doacao.id})}" class="btn btn-remover">Remover</a>
                     </td>
                 </tr>
                 </tbody>
